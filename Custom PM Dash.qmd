@@ -1,0 +1,495 @@
+---
+title: "Custom PM Dash"
+author: "Sabrina Kan"
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-location: right
+    code-fold: true
+---
+
+## Palm Beach MPO Federal Performance Measures Scorecard
+
+```{r}
+library(ggplot2)
+
+data <- data.frame(
+  category = c("A", "B", "C"),
+  value = c(10, 20, 15)
+)
+
+ggplot(data, aes(x = category, y = value)) +
+  geom_col()
+```
+# 1) Safety 
+
+## Fatalities
+
+```{r, echo=FALSE}
+library(highcharter)
+
+fatalities <- data.frame(
+  Year = c(2018, 2019, 2020, 2021, 2022, 2023, 2024),
+  Number = c(183, 174, 185, 215, 226, 181, 210)
+)
+
+hchart(fatalities, "column", hcaes(x = Year, y = Number)) |>
+  hc_title(text = "Total Fatalities by Year") |>
+  hc_subtitle(text = "Palm Beach County") |>
+  hc_yAxis(title = list(text = "Number of Fatalities")) |>
+  hc_xAxis(title = list(text = "Year")) |>
+  hc_legend(align = "center", verticalAlign = "bottom") |>
+  hc_exporting(enabled = TRUE)
+```
+## Fatal Crash Rate
+
+```{r, echo=FALSE}
+library(highcharter)
+
+fatal_rate <- data.frame(
+  Year = c(2018, 2019, 2020, 2021, 2022, 2023, 2024),
+  Rate = c(1.29, 1.21, 1.4, 1.56, 1.63, 1.22, 1.38)
+)
+
+highchart() |>
+  hc_chart(type = "line") |>
+  hc_title(text = "Fatal Crash Rate") |>
+  hc_subtitle(text = "Palm Beach County") |>
+  
+  hc_xAxis(categories = fatal_rate$Year) |>
+  hc_yAxis(title = list(text = "Rate per 100M VMT")) |>
+  
+  hc_add_series(
+    name = "Fatal Crash Rate",
+    data = fatal_rate$Rate,
+    color = "#1f77b4"
+  )
+```
+## Serious Injuries
+
+```{r, echo=FALSE}
+library(highcharter)
+
+serious_injuries <- data.frame(
+  Year = c(2018, 2019, 2020, 2021, 2022, 2023, 2024),
+  Number = c(1194, 1020, 916, 890, 818, 766, 683)
+)
+
+hchart(serious_injuries, "column", hcaes(x = Year, y = Number)) |>
+  hc_title(text = "Serious Injuries by Year") |>
+  hc_subtitle(text = "Palm Beach County") |>
+  hc_yAxis(title = list(text = "Number of Serious Injuries")) |>
+  hc_xAxis(title = list(text = "Year"))
+```
+## Serious Injury Rate
+
+```{r, echo=FALSE}
+library(highcharter)
+
+serious_rate <- data.frame(
+  Year = c(2018, 2019, 2020, 2021, 2022, 2023, 2024),
+  Rate = c(8.42, 7.08, 6.91, 6.45, 5.73, 5.16, NA)
+)
+
+highchart() |>
+  hc_chart(type = "line") |>
+  hc_title(text = "Serious Injury Rate") |>
+  hc_subtitle(text = "Palm Beach County") |>
+  
+  hc_xAxis(categories = serious_rate$Year) |>
+  hc_yAxis(title = list(text = "Rate per 100M VMT")) |>
+  
+  hc_add_series(
+    name = "Serious Injury Rate",
+    data = serious_rate$Rate,
+    color = "#ff7f0e"
+  )
+```
+# 2) Infrastructure Conditions
+## Bridge Conditions
+## Bridges in Good Condition
+
+```{r, echo=FALSE}
+library(highcharter)
+
+good_condition <- data.frame(
+  Year = c(2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024),
+  Value = c(0.877, 0.874, 0.852, 0.822, 0.821, 0.817, 0.842, 0.832)
+)
+
+highchart() |>
+  hc_chart(type = "line") |>
+  hc_title(text = "Bridges in Good Condition") |>
+  hc_subtitle(text = "Palm Beach County") |>
+  
+  hc_xAxis(categories = good_condition$Year) |>
+  
+hc_yAxis(
+  title = list(text = "Percent of Bridges"),
+  min = 0.4,
+  max = 1,
+  tickInterval = 0.1,
+  labels = list(
+    formatter = JS("function() {
+      return (this.value * 100).toFixed(0) + '%';
+    }")
+  )
+) |>
+  
+  hc_add_series(
+    name = "Good Condition",
+    data = good_condition$Value,
+    color = "#2ca02c"
+  ) |>
+  
+  hc_add_series(
+    name = "Target",
+    data = rep(0.50, 8),
+    dashStyle = "Dash",
+    color = "#000000"
+  ) |>
+  
+  hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+```
+## Bridges in Poor Condition
+
+```{r, echo=FALSE}
+library(highcharter)
+
+poor_condition <- data.frame(
+  Year = c(2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024),
+  Value = c(0.012, 0.010, 0.010, 0.010, 0.010, 0.022, 0.000, 0.000)
+)
+
+highchart() |>
+  hc_chart(type = "line") |>
+  hc_title(text = "Bridges in Poor Condition") |>
+  hc_subtitle(text = "Palm Beach County") |>
+  
+  hc_xAxis(categories = poor_condition$Year) |>
+  
+ hc_yAxis(
+  title = list(text = "Percent of Bridges"),
+  min = 0,
+  max = 0.06,
+  tickInterval = 0.01,
+  labels = list(
+    formatter = JS("function() {
+      return (this.value * 100).toFixed(0) + '%';
+    }")
+  )
+) |>
+  
+  hc_add_series(
+    name = "Poor Condition",
+    data = poor_condition$Value,
+    color = "#d62728"
+  ) |>
+  
+  hc_add_series(
+    name = "Target",
+    data = rep(0.05, 8),
+    dashStyle = "Dash",
+    color = "#000000"
+  ) |>
+  
+  hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+```
+## Pavement Conditions
+### Interstate Pavements in Good Condition
+
+```{r, echo=FALSE}
+library(highcharter)
+
+interstate_good <- data.frame(
+  Year = c(2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024),
+  Value = c(0.624, 0.552, 0.232, 0.612, 0.532, 0.595, 0.650, 0.673, 0.547)
+)
+
+highchart() |>
+  hc_chart(type = "line") |>
+  hc_title(text = "Interstate Pavements in Good Condition") |>
+  hc_subtitle(text = "Palm Beach County") |>
+  hc_xAxis(categories = interstate_good$Year) |>
+  hc_yAxis(
+  title = list(text = "Percent"),
+  min = 0.2,
+  max = 0.8,
+  tickInterval = 0.1,
+  labels = list(
+    formatter = JS("function() {
+      return (this.value * 100).toFixed(0) + '%';
+    }")
+  )
+) |>
+  hc_add_series(
+    name = "Good Condition",
+    data = interstate_good$Value,
+    color = "#2ca02c"
+  ) |>
+  hc_add_series(
+    name = "Target",
+    data = rep(0.60, 9),
+    dashStyle = "Dash",
+    color = "#888888",
+    lineWidth = 1
+  ) |>
+  hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+```
+
+### Interstate Pavements in Poor Condition
+
+```{r, echo=FALSE}
+library(highcharter)
+
+interstate_poor <- data.frame(
+  Year = c(2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024),
+  Value = c(0.000, 0.000, 0.000, 0.000, 0.002, 0.000, 0.000, 0.000, 0.000)
+)
+
+highchart() |>
+  hc_chart(type = "line") |>
+  hc_title(text = "Interstate Pavements in Poor Condition") |>
+  hc_subtitle(text = "Palm Beach County") |>
+  hc_xAxis(categories = interstate_poor$Year) |>
+  hc_yAxis(
+  title = list(text = "Percent"),
+  min = 0,
+  max = 0.06,
+  tickInterval = 0.01,
+  labels = list(
+    formatter = JS("function() {
+      return (this.value * 100).toFixed(0) + '%';
+    }")
+  )
+) |>
+  hc_add_series(
+    name = "Poor Condition",
+    data = interstate_poor$Value,
+    color = "#d62728"
+  ) |>
+  hc_add_series(
+    name = "Target",
+    data = rep(0.05, 9),
+    dashStyle = "Dash",
+    color = "#888888",
+    lineWidth = 1
+  ) |>
+  hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+```
+### Non-Interstate Pavements in Good Condition
+
+```{r, echo=FALSE}
+library(highcharter)
+
+nonint_good <- data.frame(
+  Year = c(2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024),
+  Value = c(0.417, 0.403, 0.399, 0.440, NA, 0.451, 0.533, 0.564, 0.563)
+)
+
+highchart() |>
+  hc_chart(type = "line") |>
+  hc_title(text = "Non-Interstate Pavements in Good Condition") |>
+  hc_subtitle(text = "Palm Beach County") |>
+  
+  hc_xAxis(categories = nonint_good$Year) |>
+  
+  hc_yAxis(
+  title = list(text = "Percent"),
+  min = 0.3,
+  max = 0.7,
+  tickInterval = 0.1,
+  labels = list(
+    formatter = JS("function() {
+      return (this.value * 100).toFixed(0) + '%';
+    }")
+  )
+) |>
+  
+  hc_add_series(
+    name = "Good Condition",
+    data = nonint_good$Value,
+    color = "#2ca02c"
+  ) |>
+  
+  hc_add_series(
+    name = "Target",
+    data = rep(0.40, 9),
+    dashStyle = "Dash",
+    color = "#888888",
+    lineWidth = 1
+  ) |>
+  
+  hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+```
+### Non-Interstate Pavements in Poor Condition
+
+```{r, echo=FALSE}
+library(highcharter)
+
+nonint_poor <- data.frame(
+  Year = c(2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024),
+  Value = c(0.004, 0.005, 0.001, 0.001, NA, 0.012, 0.011, 0.006, 0.005)
+)
+
+highchart() |>
+  hc_chart(type = "line") |>
+  hc_title(text = "Non-Interstate Pavements in Poor Condition") |>
+  hc_subtitle(text = "Palm Beach County") |>
+  
+  hc_xAxis(categories = nonint_poor$Year) |>
+ hc_yAxis(
+  title = list(text = "Percent"),
+  min = 0,
+  max = 0.06,
+  tickInterval = 0.01,
+  labels = list(
+    formatter = JS("function() {
+      return (this.value * 100).toFixed(0) + '%';
+    }")
+  )
+) |>
+  
+  hc_add_series(
+    name = "Poor Condition",
+    data = nonint_poor$Value,
+    color = "#d62728"
+  ) |>
+  
+  hc_add_series(
+    name = "Target",
+    data = rep(0.05, 9),
+    dashStyle = "Dash",
+    color = "#888888",
+    lineWidth = 1
+  ) |>
+  
+  hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+```
+# 3) System Performance
+## Travel Time Reliability
+### Travel Time on the Interstate
+
+```{r, echo=FALSE}
+library(highcharter)
+
+interstate_tt <- data.frame(
+  Year = c(2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024),
+  Value = c(0.854, 0.854, 0.780, 0.936, 0.831, 0.776, 0.755, 0.623)
+)
+
+highchart() |>
+  hc_chart(type = "line") |>
+  hc_title(text = "Travel Time Reliability (Interstate)") |>
+  hc_subtitle(text = "Palm Beach County") |>
+  
+  hc_xAxis(categories = interstate_tt$Year) |>
+  
+  hc_yAxis(
+  title = list(text = "Percent of Reliable Miles"),
+  min = 0.6,
+  max = 1,
+  tickInterval = 0.1,
+  labels = list(
+    formatter = JS("function() {
+      return (this.value * 100).toFixed(0) + '%';
+    }")
+  )
+) |>
+  
+  hc_add_series(
+    name = "Reliable Miles",
+    data = interstate_tt$Value,
+    color = "#1f77b4"
+  ) |>
+  
+  hc_add_series(
+    name = "Target",
+    data = rep(0.70, 8),
+    dashStyle = "Dash",
+    color = "#888888",
+    lineWidth = 1
+  ) |>
+  
+  hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+```
+### Travel Time on Non-Interstate Roads
+
+```{r, echo=FALSE}
+library(highcharter)
+
+nonint_tt <- data.frame(
+  Year = c(2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024),
+  Value = c(0.910, 0.931, 0.940, 0.980, 0.968, 0.924, 0.892, 0.868)
+)
+
+highchart() |>
+  hc_chart(type = "line") |>
+  hc_title(text = "Travel Time Reliability (Non-Interstate)") |>
+  hc_subtitle(text = "Palm Beach County") |>
+  
+  hc_xAxis(categories = nonint_tt$Year) |>
+  
+  hc_yAxis(
+  title = list(text = "Percent of Reliable Miles"),
+  min = 0.5,
+  max = 1,
+  tickInterval = 0.1,
+  labels = list(
+    formatter = JS("function() {
+      return (this.value * 100).toFixed(0) + '%';
+    }")
+  )
+) |>
+  
+  hc_add_series(
+    name = "Reliable Miles",
+    data = nonint_tt$Value,
+    color = "#1f77b4"
+  ) |>
+  
+  hc_add_series(
+    name = "Target",
+    data = rep(0.50, 8),
+    dashStyle = "Dash",
+    color = "#888888",
+    lineWidth = 1
+  ) |>
+  
+  hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+```
+## Truck Travel Time Reliability
+
+```{r, echo=FALSE}
+library(highcharter)
+
+truck_tt <- data.frame(
+  Year = c(2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024),
+  Value = c(1.63, 1.77, 1.86, 1.66, 1.78, 1.95, 2.02, 2.09)
+)
+
+highchart() |>
+  hc_chart(type = "line") |>
+  hc_title(text = "Truck Travel Time Reliability") |>
+  hc_subtitle(text = "Palm Beach County") |>
+  hc_xAxis(categories = truck_tt$Year) |>
+  hc_yAxis(
+    title = list(text = "Reliability Ratio"),
+    min = 1.5,
+    max = 2.2
+  ) |>
+  hc_add_series(
+    name = "Reliability Ratio",
+    data = truck_tt$Value,
+    color = "#1f77b4"
+  ) |>
+  hc_add_series(
+    name = "Target",
+    data = rep(2.00, 8),
+    dashStyle = "Dash",
+    color = "#888888",
+    lineWidth = 1
+  ) |>
+  hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+```
