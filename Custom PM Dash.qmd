@@ -196,6 +196,60 @@ highchart() |>
   
   hc_plotOptions(line = list(marker = list(enabled = TRUE)))
 ```
+## Map of All Bridges
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(leaflet)
+library(htmltools)
+
+bridges <- read.csv("C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/data/Bridges.csv")
+
+bridges <- bridges[
+  !is.na(bridges$Latitude) &
+  !is.na(bridges$Longitude) &
+  bridges$Latitude >= -90 & bridges$Latitude <= 90 &
+  bridges$Longitude >= -180 & bridges$Longitude <= 180,
+]
+
+condition_order <- factor(
+  bridges$Condition,
+  levels = c("Good", "Fair", "Poor")
+)
+
+pal <- colorFactor(
+  palette = c("green", "orange", "red"),
+  levels = levels(condition_order),
+  ordered = TRUE
+)
+
+labs <- paste0(
+  "<b>Bridge ID:</b> ", bridges$Bridge_ID,
+  "<br><b>Condition:</b> ", bridges$Condition
+)
+
+leaflet(data = bridges) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addCircleMarkers(
+    lng = ~Longitude,
+    lat = ~Latitude,
+    popup = ~paste0(
+      "<b>Bridge ID:</b> ", Bridge_ID,
+      "<br><b>Condition:</b> ", Condition
+    ),
+    radius = 5,
+    label = lapply(labs, htmltools::HTML),
+    color = ~pal(Condition),
+    weight = 1,
+    fillOpacity = 0.8
+  ) |>
+  setView(lng = -80.15, lat = 26.65, zoom = 9) |>
+  addLegend(
+    position = "bottomright",
+    pal = pal,
+    values = condition_order,
+    title = "Bridge Condition",
+    opacity = 1
+  )
 ## Pavement Conditions
 ### Interstate Pavements in Good Condition
 
