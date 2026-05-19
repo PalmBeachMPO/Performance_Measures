@@ -9,18 +9,78 @@ format:
     code-fold: true
 ---
 
-## Palm Beach MPO Federal Performance Measures Scorecard
+# Palm Beach MPO Federal Performance Measures Scorecard
+## Safety
 
-```{r}
-library(ggplot2)
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(readxl)
+library(dplyr)
+library(gt)
 
-data <- data.frame(
-  category = c("A", "B", "C"),
-  value = c(10, 20, 15)
+scorecard <- read_excel(
+  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/Performance_Measures_R.xlsx",
+  sheet = "Scorecard_Safety"
 )
 
-ggplot(data, aes(x = category, y = value)) +
-  geom_col()
+scorecard |>
+  mutate(
+    Goal_Met = ifelse(Goal_Met == "Yes", "✓", "✕")
+  ) |>
+  gt() |>
+  
+  cols_label(
+    Metric = "Metric",
+    Goal_Met = "Goal Met",
+    Five_Year_Avg = "5-YR Avg. 2024",
+    Target = "Target"
+  ) |>
+  
+  tab_style(
+    style = list(
+      cell_fill(color = "#4F81BD"),
+      cell_text(color = "white", weight = "bold")
+    ),
+    locations = cells_column_labels(everything())
+  ) |>
+  
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_body(columns = Metric)
+  ) |>
+  
+  cols_align(
+    align = "center",
+    columns = c(Goal_Met, Five_Year_Avg, Target)
+  ) |>
+  tab_style(
+  style = cell_text(
+    color = "red",
+    weight = "bold",
+    size = px(22)
+  ),
+  locations = cells_body(
+    columns = Goal_Met,
+    rows = Goal_Met == "✕"
+  )
+) |>
+
+tab_style(
+  style = cell_text(
+    color = "green",
+    weight = "bold",
+    size = px(22)
+  ),
+  locations = cells_body(
+    columns = Goal_Met,
+    rows = Goal_Met == "✓"
+  )
+) |>
+  tab_options(
+    table.font.size = px(16),
+    data_row.padding = px(8),
+    table.border.top.color = "white",
+    table.border.bottom.color = "white"
+  )
 ```
 # 1) Safety 
 

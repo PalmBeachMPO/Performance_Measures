@@ -4,14 +4,14 @@
     "href": "Custom PM Dash.html",
     "title": "Custom PM Dash",
     "section": "",
-    "text": "Code\nlibrary(ggplot2)\n\ndata &lt;- data.frame(\n  category = c(\"A\", \"B\", \"C\"),\n  value = c(10, 20, 15)\n)\n\nggplot(data, aes(x = category, y = value)) +\n  geom_col()"
+    "text": "Metric\nGoal Met\n5-YR Avg. 2024\nTarget\n\n\n\n\nFatalities\n✕\n207.40\n0\n\n\nFatal Crash Rate\n✕\n1.45\n0\n\n\nSerious Injuries\n✕\n812.20\n0\n\n\nSerious Injury Rate\n✕\n5.73\n0\n\n\nNon-motorized Fatalities and Serious Injuries\n✕\n203.80\n0"
   },
   {
-    "objectID": "Custom PM Dash.html#palm-beach-mpo-federal-performance-measures-scorecard",
-    "href": "Custom PM Dash.html#palm-beach-mpo-federal-performance-measures-scorecard",
+    "objectID": "Custom PM Dash.html#safety",
+    "href": "Custom PM Dash.html#safety",
     "title": "Custom PM Dash",
     "section": "",
-    "text": "Code\nlibrary(ggplot2)\n\ndata &lt;- data.frame(\n  category = c(\"A\", \"B\", \"C\"),\n  value = c(10, 20, 15)\n)\n\nggplot(data, aes(x = category, y = value)) +\n  geom_col()"
+    "text": "Metric\nGoal Met\n5-YR Avg. 2024\nTarget\n\n\n\n\nFatalities\n✕\n207.40\n0\n\n\nFatal Crash Rate\n✕\n1.45\n0\n\n\nSerious Injuries\n✕\n812.20\n0\n\n\nSerious Injury Rate\n✕\n5.73\n0\n\n\nNon-motorized Fatalities and Serious Injuries\n✕\n203.80\n0"
   },
   {
     "objectID": "Custom PM Dash.html#fatalities",
