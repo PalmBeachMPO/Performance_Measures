@@ -250,6 +250,7 @@ leaflet(data = bridges) |>
     title = "Bridge Condition",
     opacity = 1
   )
+```
 ## Pavement Conditions
 ### Interstate Pavements in Good Condition
 
@@ -420,6 +421,43 @@ highchart() |>
   ) |>
   
   hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+```
+## Pavement Conditions Map
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(leaflet)
+library(sf)
+
+pavement <- st_read(
+  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/data/pavement.geojson",
+  quiet = TRUE
+)
+
+pavement <- st_collection_extract(pavement, "LINESTRING")
+
+pal <- colorFactor(
+  palette = c("Good" = "green", "Fair" = "orange", "Poor" = "red"),
+  domain = pavement$pm_pavement
+)
+
+leaflet(pavement) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addPolylines(
+    color = ~pal(pm_pavement),
+    weight = 4,
+    opacity = 0.85,
+    popup = ~paste0(
+      "<b>Pavement Condition:</b> ", pm_pavement
+    )
+  ) |>
+  setView(lng = -80.15, lat = 26.65, zoom = 9) |>
+  addLegend(
+    position = "bottomright",
+    pal = pal,
+    values = pavement$pm_pavement,
+    title = "Pavement Condition",
+    opacity = 1
+  )
 ```
 # 3) System Performance
 ## Travel Time Reliability
