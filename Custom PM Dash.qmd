@@ -1,14 +1,94 @@
 ---
-title: "Custom PM Dash"
+title: "Palm Beach MPO Federal Performance Measures"
 author: "Sabrina Kan"
+
 format:
   html:
     theme: cosmo
     toc: true
+    toc-title: "Contents"
     toc-location: right
-    code-fold: true
----
+    smooth-scroll: true
+    page-layout: full
 
+execute:
+  warning: false
+  message: false
+
+include-before-body:
+  text: |
+    <div class="dashboard-header">
+      <span class="header-main">Palm Beach MPO</span>
+      <span class="header-sub">Performance Measures 2025</span>
+    </div>
+
+include-in-header:
+  text: |
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      .dashboard-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 76px;
+        background-color: #62B5E5;
+        color: white;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        gap: 34px;
+        padding: 0 34px;
+        box-sizing: border-box;
+      }
+
+      .header-main {
+        font-weight: 700;
+        font-size: 30px;
+        white-space: nowrap;
+      }
+
+      .header-sub {
+        font-weight: 400;
+        font-size: 20px;
+        white-space: nowrap;
+      }
+
+      #quarto-content {
+        padding-top: 105px;
+      }
+
+      #quarto-margin-sidebar {
+        padding-top: 90px;
+      }
+
+      #TOC > .toc-title {
+        font-weight: 700;
+        font-size: 22px;
+        color: #1F2D3D;
+      }
+
+      h1 {
+        font-size: 48px;
+        font-weight: 700;
+        color: #1F2D3D;
+      }
+
+      h2 {
+        color: #1F2D3D;
+        font-weight: 700;
+        margin-top: 50px;
+      }
+
+      h3 {
+        color: #1F2D3D;
+        font-weight: 600;
+      }
+    </style>
+---
 # Palm Beach MPO Federal Performance Measures Scorecard
 ## Safety
 
@@ -27,80 +107,54 @@ scorecard |>
     Goal_Met = ifelse(Goal_Met == "Yes", "✓", "✕")
   ) |>
   gt() |>
-  
   cols_label(
     Metric = "Metric",
     Goal_Met = "Goal Met",
     Five_Year_Avg = "5-YR Avg. 2024",
     Target = "Target"
   ) |>
-  
   tab_style(
     style = list(
-      cell_fill(color = "#4F81BD"),
-      cell_text(color = "white", weight = "bold")
+      cell_fill(color = "#62B5E5"),
+      cell_text(color = "white", weight = "bold", size = px(18))
     ),
     locations = cells_column_labels(everything())
   ) |>
-  
   tab_style(
-    style = cell_text(weight = "bold"),
+    style = cell_text(weight = "bold", size = px(18), color = "#1F2D3D"),
     locations = cells_body(columns = Metric)
   ) |>
-  
   cols_align(
     align = "center",
     columns = c(Goal_Met, Five_Year_Avg, Target)
   ) |>
   tab_style(
-  style = cell_text(
-    color = "red",
-    weight = "bold",
-    size = px(22)
-  ),
-  locations = cells_body(
-    columns = Goal_Met,
-    rows = Goal_Met == "✕"
-  )
-) |>
-
-tab_style(
-  style = cell_text(
-    color = "green",
-    weight = "bold",
-    size = px(22)
-  ),
-  locations = cells_body(
-    columns = Goal_Met,
-    rows = Goal_Met == "✓"
-  )
-) |>
+    style = cell_text(color = "red", weight = "bold", size = px(30)),
+    locations = cells_body(
+      columns = Goal_Met,
+      rows = Goal_Met == "✕"
+    )
+  ) |>
+  tab_style(
+    style = cell_text(color = "green", weight = "bold", size = px(30)),
+    locations = cells_body(
+      columns = Goal_Met,
+      rows = Goal_Met == "✓"
+    )
+  ) |>
+  opt_row_striping() |>
   tab_options(
-    table.font.size = px(16),
-    data_row.padding = px(8),
+    table.width = pct(100),
+    table.font.size = px(18),
+    data_row.padding = px(14),
+    column_labels.border.bottom.color = "#D9E2EC",
     table.border.top.color = "white",
-    table.border.bottom.color = "white"
+    table.border.bottom.color = "white",
+    row.striping.background_color = "#F7F9FC",
+    heading.background.color = "white",
+    table_body.hlines.color = "#E6ECF2",
+    table_body.vlines.color = "white"
   )
-```
-# 1) Safety 
-
-## Fatalities
-
-```{r, echo=FALSE}
-library(highcharter)
-
-fatalities <- data.frame(
-  Year = c(2018, 2019, 2020, 2021, 2022, 2023, 2024),
-  Number = c(183, 174, 185, 215, 226, 181, 210)
-)
-
-hchart(fatalities, "column", hcaes(x = Year, y = Number)) |>
-  hc_title(text = "Total Fatalities by Year") |>
-  hc_subtitle(text = "Palm Beach County") |>
-  hc_yAxis(title = list(text = "Number of Fatalities")) |>
-  hc_xAxis(title = list(text = "Year")) |>
-  hc_legend(align = "center", verticalAlign = "bottom") |>
-  hc_exporting(enabled = TRUE)
 ```
 ## Fatal Crash Rate
 

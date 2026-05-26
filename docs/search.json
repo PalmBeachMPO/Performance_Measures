@@ -2,98 +2,91 @@
   {
     "objectID": "Custom PM Dash.html",
     "href": "Custom PM Dash.html",
-    "title": "Custom PM Dash",
+    "title": "Palm Beach MPO Federal Performance Measures",
     "section": "",
-    "text": "Metric\nGoal Met\n5-YR Avg. 2024\nTarget\n\n\n\n\nFatalities\n✕\n207.40\n0\n\n\nFatal Crash Rate\n✕\n1.45\n0\n\n\nSerious Injuries\n✕\n812.20\n0\n\n\nSerious Injury Rate\n✕\n5.73\n0\n\n\nNon-motorized Fatalities and Serious Injuries\n✕\n203.80\n0"
+    "text": "Palm Beach MPO\n  Performance Measures 2025"
   },
   {
     "objectID": "Custom PM Dash.html#safety",
     "href": "Custom PM Dash.html#safety",
-    "title": "Custom PM Dash",
-    "section": "",
-    "text": "Metric\nGoal Met\n5-YR Avg. 2024\nTarget\n\n\n\n\nFatalities\n✕\n207.40\n0\n\n\nFatal Crash Rate\n✕\n1.45\n0\n\n\nSerious Injuries\n✕\n812.20\n0\n\n\nSerious Injury Rate\n✕\n5.73\n0\n\n\nNon-motorized Fatalities and Serious Injuries\n✕\n203.80\n0"
-  },
-  {
-    "objectID": "Custom PM Dash.html#fatalities",
-    "href": "Custom PM Dash.html#fatalities",
-    "title": "Custom PM Dash",
-    "section": "Fatalities",
-    "text": "Fatalities\n\n\nWarning: package 'highcharter' was built under R version 4.5.3\n\n\nRegistered S3 method overwritten by 'quantmod':\n  method            from\n  as.zoo.data.frame zoo"
+    "title": "Palm Beach MPO Federal Performance Measures",
+    "section": "Safety",
+    "text": "Safety\n\n\n\n\n\n\n\n\nMetric\nGoal Met\n5-YR Avg. 2024\nTarget\n\n\n\n\nFatalities\n✕\n207.40\n0\n\n\nFatal Crash Rate\n✕\n1.45\n0\n\n\nSerious Injuries\n✕\n812.20\n0\n\n\nSerious Injury Rate\n✕\n5.73\n0\n\n\nNon-motorized Fatalities and Serious Injuries\n✕\n203.80\n0"
   },
   {
     "objectID": "Custom PM Dash.html#fatal-crash-rate",
     "href": "Custom PM Dash.html#fatal-crash-rate",
-    "title": "Custom PM Dash",
+    "title": "Palm Beach MPO Federal Performance Measures",
     "section": "Fatal Crash Rate",
     "text": "Fatal Crash Rate"
   },
   {
     "objectID": "Custom PM Dash.html#serious-injuries",
     "href": "Custom PM Dash.html#serious-injuries",
-    "title": "Custom PM Dash",
+    "title": "Palm Beach MPO Federal Performance Measures",
     "section": "Serious Injuries",
     "text": "Serious Injuries"
   },
   {
     "objectID": "Custom PM Dash.html#serious-injury-rate",
     "href": "Custom PM Dash.html#serious-injury-rate",
-    "title": "Custom PM Dash",
+    "title": "Palm Beach MPO Federal Performance Measures",
     "section": "Serious Injury Rate",
     "text": "Serious Injury Rate"
   },
   {
     "objectID": "Custom PM Dash.html#bridge-conditions",
     "href": "Custom PM Dash.html#bridge-conditions",
-    "title": "Custom PM Dash",
+    "title": "Palm Beach MPO Federal Performance Measures",
     "section": "Bridge Conditions",
     "text": "Bridge Conditions"
   },
   {
     "objectID": "Custom PM Dash.html#bridges-in-good-condition",
     "href": "Custom PM Dash.html#bridges-in-good-condition",
-    "title": "Custom PM Dash",
+    "title": "Palm Beach MPO Federal Performance Measures",
     "section": "Bridges in Good Condition",
     "text": "Bridges in Good Condition"
   },
   {
     "objectID": "Custom PM Dash.html#bridges-in-poor-condition",
     "href": "Custom PM Dash.html#bridges-in-poor-condition",
-    "title": "Custom PM Dash",
+    "title": "Palm Beach MPO Federal Performance Measures",
     "section": "Bridges in Poor Condition",
     "text": "Bridges in Poor Condition"
   },
   {
     "objectID": "Custom PM Dash.html#map-of-all-bridges",
     "href": "Custom PM Dash.html#map-of-all-bridges",
-    "title": "Custom PM Dash",
+    "title": "Palm Beach MPO Federal Performance Measures",
     "section": "Map of All Bridges",
     "text": "Map of All Bridges"
   },
   {
     "objectID": "Custom PM Dash.html#pavement-conditions",
     "href": "Custom PM Dash.html#pavement-conditions",
-    "title": "Custom PM Dash",
+    "title": "Palm Beach MPO Federal Performance Measures",
     "section": "Pavement Conditions",
     "text": "Pavement Conditions\n\nInterstate Pavements in Good Condition\n\n\n\n\n\n\n\n\nInterstate Pavements in Poor Condition\n\n\n\n\n\n\n\n\nNon-Interstate Pavements in Good Condition\n\n\n\n\n\n\n\n\nNon-Interstate Pavements in Poor Condition"
   },
   {
     "objectID": "Custom PM Dash.html#pavement-conditions-map",
     "href": "Custom PM Dash.html#pavement-conditions-map",
-    "title": "Custom PM Dash",
+    "title": "Palm Beach MPO Federal Performance Measures",
     "section": "Pavement Conditions Map",
     "text": "Pavement Conditions Map"
   },
   {
     "objectID": "Custom PM Dash.html#travel-time-reliability",
     "href": "Custom PM Dash.html#travel-time-reliability",
-    "title": "Custom PM Dash",
+    "title": "Palm Beach MPO Federal Performance Measures",
     "section": "Travel Time Reliability",
     "text": "Travel Time Reliability\n\nTravel Time on the Interstate\n\n\n\n\n\n\n\n\nTravel Time on Non-Interstate Roads"
   },
   {
     "objectID": "Custom PM Dash.html#truck-travel-time-reliability",
     "href": "Custom PM Dash.html#truck-travel-time-reliability",
-    "title": "Custom PM Dash",
+    "title": "Palm Beach MPO Federal Performance Measures",
     "section": "Truck Travel Time Reliability",
     "text": "Truck Travel Time Reliability"
   }
