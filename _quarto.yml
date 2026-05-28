@@ -1,7 +1,11 @@
 project:
   type: website
   output-dir: docs
-
+  
+resources:
+  - images/logo.png
+  - images/Performance_measures_header_main.webp
+  
 website:
   title: "Palm Beach MPO Dashboard"
 

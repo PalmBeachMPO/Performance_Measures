@@ -15,12 +15,15 @@ format:
 execute:
   warning: false
   message: false
-
+  
+resources:
+  - images/logo.png
+  
 include-before-body:
   text: |
     <div class="dashboard-header">
 
-      <img src="New Color Icon (white background).png" class="header-logo">
+     <img src="images/logo.png" class="header-logo" alt="Palm Beach MPO logo">
 
       <span class="header-main">Palm Beach MPO</span>
 
@@ -117,7 +120,7 @@ include-in-header:
 ---
 ::: {.text-center}
 
-![](Performance_measures_header_main.webp){width="100%"}
+![](images/Performance_measures_header_main.webp){width="100%"}
 
 :::
 # Palm Beach MPO Federal Performance Measures Scorecard
