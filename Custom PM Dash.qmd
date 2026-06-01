@@ -1,6 +1,5 @@
 ---
 title: "Palm Beach MPO Federal Performance Measures"
-author: "Sabrina Kan"
 
 format:
   html:
@@ -23,7 +22,7 @@ include-before-body:
   text: |
     <div class="dashboard-header">
 
-     <img src="images/logo.png" class="header-logo" alt="Palm Beach MPO logo">
+      <img src="images/logo.png" class="header-logo" alt="Palm Beach MPO logo">
 
       <span class="header-main">Palm Beach MPO</span>
 
@@ -122,6 +121,9 @@ include-in-header:
 
 ![](images/Performance_measures_header_main.webp){width="100%"}
 
+The following goals, objectives, performance measures and targets are associated with the MPO’s Vision of a safe, efficient, and connected multimodal transportation system. The performance measures and targets are adopted into the TPA's 2050 Long Range Transportation Plan (LRTP) and integrated into the the TPA's 5-Year Transportation Improvement Program (TIP). 
+
+This interactive dashboard provides a way to view the most up-to-date information for all performance measures adopted by the MPO. Formal review, public involvement, and the update of targets occurs annually in February.
 :::
 # Palm Beach MPO Federal Performance Measures Scorecard
 
@@ -176,6 +178,286 @@ scorecard |>
       columns = Goal_Met,
       rows = Goal_Met == "✓"
     )
+  ) |>
+  opt_row_striping() |>
+  tab_options(
+    table.width = pct(100),
+    table.font.size = px(18),
+    data_row.padding = px(14),
+    column_labels.border.bottom.color = "#D9E2EC",
+    table.border.top.color = "white",
+    table.border.bottom.color = "white",
+    row.striping.background_color = "#F7F9FC",
+    heading.background.color = "white",
+    table_body.hlines.color = "#E6ECF2",
+    table_body.vlines.color = "white"
+  )
+```
+## Infrastructure Conditions
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(readxl)
+library(dplyr)
+library(gt)
+
+scorecard <- read_excel(
+  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/Performance_Measures_R.xlsx",
+  sheet = "Scorecard_Infrastructure"
+)
+
+scorecard |>
+  mutate(
+    Goal_Met = ifelse(Goal_Met == "Yes", "✓", "✕")
+  ) |>
+  gt() |>
+  fmt_percent(
+  columns = c(`Actual (2024)`, `Target (2025)`),
+  decimals = 0
+) |>
+  cols_label(
+    Category = "Category",
+    Metric = "Metric",
+    Goal_Met = "Goal Met",
+    `Actual (2024)` = "Actual (2024)",
+    `Target (2025)` = "Target (2025)"
+  ) |>
+  tab_style(
+    style = list(
+      cell_fill(color = "#62B5E5"),
+      cell_text(color = "white", weight = "bold", size = px(18))
+    ),
+    locations = cells_column_labels(everything())
+  ) |>
+  tab_style(
+    style = cell_text(weight = "bold", size = px(18), color = "#1F2D3D"),
+    locations = cells_body(columns = Metric)
+  ) |>
+  cols_align(
+    align = "center",
+    columns = c(Goal_Met, `Actual (2024)`, `Target (2025)`)
+  ) |>
+  tab_style(
+    style = cell_text(color = "red", weight = "bold", size = px(30)),
+    locations = cells_body(
+      columns = Goal_Met,
+      rows = Goal_Met == "✕"
+    )
+  ) |>
+  tab_style(
+    style = cell_text(color = "green", weight = "bold", size = px(30)),
+    locations = cells_body(
+      columns = Goal_Met,
+      rows = Goal_Met == "✓"
+    )
+  ) |>
+  opt_row_striping() |>
+  tab_options(
+    table.width = pct(100),
+    table.font.size = px(18),
+    data_row.padding = px(14),
+    column_labels.border.bottom.color = "#D9E2EC",
+    table.border.top.color = "white",
+    table.border.bottom.color = "white",
+    row.striping.background_color = "#F7F9FC",
+    heading.background.color = "white",
+    table_body.hlines.color = "#E6ECF2",
+    table_body.vlines.color = "white"
+  )
+```
+## System Performance Reliability
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(readxl)
+library(dplyr)
+library(gt)
+
+scorecard <- read_excel(
+  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/Performance_Measures_R.xlsx",
+  sheet = "Scorecard_Sys_Per_Reli"
+)
+
+scorecard |>
+  mutate(
+    Goal_Met = ifelse(Goal_Met == "Yes", "✓", "✕")
+  ) |>
+  gt() |>
+tab_style(
+  style = cell_text(),
+  locations = cells_body(
+    columns = `Actual (2024)`,
+    rows = 1:2
+  )
+) |>
+fmt(
+  columns = `Actual (2024)`,
+  rows = 1:2,
+  fns = function(x) paste0(round(x * 100, 1), "%")
+) |>
+  cols_label(
+    Metric = "Metric",
+    Goal_Met = "Goal Met",
+    `Actual (2024)` = "Actual (2024)",
+    `Target (2025)` = "Target (2025)"
+  ) |>
+  tab_style(
+    style = list(
+      cell_fill(color = "#62B5E5"),
+      cell_text(color = "white", weight = "bold", size = px(18))
+    ),
+    locations = cells_column_labels(everything())
+  ) |>
+  tab_style(
+    style = cell_text(weight = "bold", size = px(18), color = "#1F2D3D"),
+    locations = cells_body(columns = Metric)
+  ) |>
+  cols_align(
+    align = "center",
+    columns = c(Goal_Met, `Actual (2024)`, `Target (2025)`)
+  ) |>
+  tab_style(
+    style = cell_text(color = "red", weight = "bold", size = px(30)),
+    locations = cells_body(
+      columns = Goal_Met,
+      rows = Goal_Met == "✕"
+    )
+  ) |>
+  tab_style(
+    style = cell_text(color = "green", weight = "bold", size = px(30)),
+    locations = cells_body(
+      columns = Goal_Met,
+      rows = Goal_Met == "✓"
+    )
+  ) |>
+  opt_row_striping() |>
+  tab_options(
+    table.width = pct(100),
+    table.font.size = px(18),
+    data_row.padding = px(14),
+    column_labels.border.bottom.color = "#D9E2EC",
+    table.border.top.color = "white",
+    table.border.bottom.color = "white",
+    row.striping.background_color = "#F7F9FC",
+    heading.background.color = "white",
+    table_body.hlines.color = "#E6ECF2",
+    table_body.vlines.color = "white"
+  )
+```
+## Transit Asset Management
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(readxl)
+library(dplyr)
+library(gt)
+
+scorecard <- read_excel(
+  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/Performance_Measures_R.xlsx",
+  sheet = "Scorecard_Transit_As_Man"
+)
+
+# Standardize column name in case Excel has "Goal Met" instead of "Goal_Met"
+if ("Goal Met" %in% names(scorecard)) {
+  scorecard <- scorecard |>
+    rename(Goal_Met = `Goal Met`)
+}
+
+scorecard |>
+  mutate(
+    Goal_Met = ifelse(Goal_Met == "Yes", "✓", "✕")
+  ) |>
+  gt() |>
+  fmt_percent(
+  columns = `Actual (2023)`,
+  decimals = 2
+) |>
+  cols_label(
+    Category = "Category",
+    Metric = "Metric",
+    Goal_Met = "Goal Met",
+    `Actual (2023)` = "Actual (2023)",
+    `Target (2024)` = "Target (2024)"
+  ) |>
+  tab_style(
+    style = list(
+      cell_fill(color = "#62B5E5"),
+      cell_text(color = "white", weight = "bold", size = px(18))
+    ),
+    locations = cells_column_labels(everything())
+  ) |>
+  tab_style(
+    style = cell_text(weight = "bold", size = px(18), color = "#1F2D3D"),
+    locations = cells_body(columns = Metric)
+  ) |>
+  cols_align(
+    align = "center",
+    columns = c(Goal_Met, `Actual (2023)`, `Target (2024)`)
+  ) |>
+  tab_style(
+    style = cell_text(color = "#F8485E", weight = "bold", size = px(30)),
+    locations = cells_body(
+      columns = Goal_Met,
+      rows = Goal_Met == "✕"
+    )
+  ) |>
+  tab_style(
+    style = cell_text(color = "#26D07C", weight = "bold", size = px(30)),
+    locations = cells_body(
+      columns = Goal_Met,
+      rows = Goal_Met == "✓"
+    )
+  ) |>
+  opt_row_striping() |>
+  tab_options(
+    table.width = pct(100),
+    table.font.size = px(18),
+    data_row.padding = px(14),
+    column_labels.border.bottom.color = "#D9E2EC",
+    table.border.top.color = "white",
+    table.border.bottom.color = "white",
+    row.striping.background_color = "#F7F9FC",
+    heading.background.color = "white",
+    table_body.hlines.color = "#E6ECF2",
+    table_body.vlines.color = "white"
+  )
+```
+## Transit Safety: Palm Tran
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(readxl)
+library(dplyr)
+library(gt)
+
+scorecard <- read_excel(
+  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/Performance_Measures_R.xlsx",
+  sheet = "Scorecard_Transit_Safety"
+)
+
+scorecard |>
+  gt() |>
+  fmt_number(
+  columns = c(`Actual (2024)`, `Target (2025)`),
+  decimals = 1
+) |>
+  cols_label(
+    Category = "Category",
+    Metric = "Metric",
+    `Goal Met` = "Goal Met",
+    `Actual (2024)` = "Actual (2024)",
+    `Target (2025)` = "Target (2025)"
+  ) |>
+  tab_style(
+    style = list(
+      cell_fill(color = "#62B5E5"),
+      cell_text(color = "white", weight = "bold", size = px(18))
+    ),
+    locations = cells_column_labels(everything())
+  ) |>
+  tab_style(
+    style = cell_text(weight = "bold", size = px(18), color = "#1F2D3D"),
+    locations = cells_body(columns = Metric)
+  ) |>
+  cols_align(
+    align = "center",
+    columns = c(`Goal Met`, `Actual (2024)`, `Target (2025)`)
   ) |>
   opt_row_striping() |>
   tab_options(
