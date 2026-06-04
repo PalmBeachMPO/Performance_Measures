@@ -5,7 +5,7 @@ project:
 resources:
   - images/logo.png
   - images/Performance_measures_header_main.webp
-  
+  - images/PM_Safety.png
 website:
   title: "Palm Beach MPO Dashboard"
 
