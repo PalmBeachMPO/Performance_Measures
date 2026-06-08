@@ -14,28 +14,22 @@ format:
 execute:
   warning: false
   message: false
-  
+
 resources:
   - images/logo.png
-  
+
 include-before-body:
   text: |
     <div class="dashboard-header">
-
       <img src="images/logo.png" class="header-logo" alt="Palm Beach MPO logo">
-
       <span class="header-main">Palm Beach MPO</span>
-
       <span class="header-sub">Performance Measures 2025</span>
-
       <div id="quarto-search"></div>
-
     </div>
 
 include-in-header:
   text: |
     <style>
-
       body {
         font-family: Tahoma, sans-serif;
         color: #646566;
@@ -47,16 +41,12 @@ include-in-header:
         left: 0;
         width: 100%;
         height: 76px;
-
         background-color: #62B5E5;
         color: white;
-
         z-index: 9999;
-
         display: flex;
         align-items: center;
         gap: 20px;
-
         padding: 0 34px;
         box-sizing: border-box;
       }
@@ -114,11 +104,10 @@ include-in-header:
         color: #646566;
         font-weight: 600;
       }
-      .metric-card-row {
-      
-    
+
     </style>
 ---
+
 ::: {.text-left}
 
 ![](images/Performance_measures_header_main.webp){width="100%"}
@@ -226,15 +215,19 @@ scorecard |>
   ) |>
   gt() |>
   fmt_percent(
-  columns = c(`Actual (2024)`, `Target (2025)`),
-  decimals = 0
-) |>
+    columns = c(`Actual (2024)`, `Target (2025)`),
+    decimals = 0
+  ) |>
   cols_label(
     Category = "Category",
     Metric = "Metric",
     Goal_Met = "Goal Met",
     `Actual (2024)` = "Actual (2024)",
     `Target (2025)` = "Target (2025)"
+  ) |>
+  sub_missing(
+    columns = everything(),
+    missing_text = ""
   ) |>
   tab_style(
     style = list(
@@ -244,7 +237,7 @@ scorecard |>
     locations = cells_column_labels(everything())
   ) |>
   tab_style(
-    style = cell_text(weight = "bold", size = px(18), color = "#1F2D3D"),
+    style = cell_text(weight = "bold", size = px(18), color = "#646566"),
     locations = cells_body(columns = Metric)
   ) |>
   cols_align(
@@ -252,14 +245,14 @@ scorecard |>
     columns = c(Goal_Met, `Actual (2024)`, `Target (2025)`)
   ) |>
   tab_style(
-    style = cell_text(color = "red", weight = "bold", size = px(30)),
+    style = cell_text(color = "#F8485E", weight = "bold", size = px(30)),
     locations = cells_body(
       columns = Goal_Met,
       rows = Goal_Met == "✕"
     )
   ) |>
   tab_style(
-    style = cell_text(color = "green", weight = "bold", size = px(30)),
+    style = cell_text(color = "#26D07C", weight = "bold", size = px(30)),
     locations = cells_body(
       columns = Goal_Met,
       rows = Goal_Met == "✓"
@@ -367,6 +360,7 @@ fmt(
 
 **Transit agencies** are responsible for maintaining vehicles, buildings, track, and other assets to ensure quality and reliable service. These metrics track the condition and age of such assets.
 :::
+
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(readxl)
 library(dplyr)
@@ -377,7 +371,6 @@ scorecard <- read_excel(
   sheet = "Scorecard_Transit_As_Man"
 )
 
-# Standardize column name in case Excel has "Goal Met" instead of "Goal_Met"
 if ("Goal Met" %in% names(scorecard)) {
   scorecard <- scorecard |>
     rename(Goal_Met = `Goal Met`)
@@ -389,15 +382,19 @@ scorecard |>
   ) |>
   gt() |>
   fmt_percent(
-  columns = `Actual (2023)`,
-  decimals = 2
-) |>
+    columns = `Actual (2023)`,
+    decimals = 2
+  ) |>
   cols_label(
     Category = "Category",
     Metric = "Metric",
     Goal_Met = "Goal Met",
     `Actual (2023)` = "Actual (2023)",
     `Target (2024)` = "Target (2024)"
+  ) |>
+  sub_missing(
+    columns = everything(),
+    missing_text = ""
   ) |>
   tab_style(
     style = list(
@@ -407,7 +404,7 @@ scorecard |>
     locations = cells_column_labels(everything())
   ) |>
   tab_style(
-    style = cell_text(weight = "bold", size = px(18), color = "#1F2D3D"),
+    style = cell_text(weight = "bold", size = px(18), color = "#646566"),
     locations = cells_body(columns = Metric)
   ) |>
   cols_align(
@@ -442,12 +439,14 @@ scorecard |>
     table_body.vlines.color = "white"
   )
 ```
+
 ## Transit Safety: Palm Tran
 :::{.text-left}
 ![](images/PM_TransitSafe.png){width="%"} 
 
 Transit providers must annually establish **transit safety** performance targets. MPOs also must establish transit safety targets and incorporate transit safety in the metropolitan transportation planning process.
 :::
+
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(readxl)
 library(dplyr)
@@ -461,15 +460,20 @@ scorecard <- read_excel(
 scorecard |>
   gt() |>
   fmt_number(
-  columns = c(`Actual (2024)`, `Target (2025)`),
-  decimals = 1
-) |>
+    columns = c(`Actual (2024)`, `Target (2025)`),
+    decimals = 1,
+    drop_trailing_zeros = TRUE
+  ) |>
   cols_label(
     Category = "Category",
     Metric = "Metric",
     `Goal Met` = "Goal Met",
     `Actual (2024)` = "Actual (2024)",
     `Target (2025)` = "Target (2025)"
+  ) |>
+  sub_missing(
+    columns = everything(),
+    missing_text = ""
   ) |>
   tab_style(
     style = list(
@@ -479,7 +483,7 @@ scorecard |>
     locations = cells_column_labels(everything())
   ) |>
   tab_style(
-    style = cell_text(weight = "bold", size = px(18), color = "#1F2D3D"),
+    style = cell_text(weight = "bold", size = px(18), color = "#646566"),
     locations = cells_body(columns = Metric)
   ) |>
   cols_align(
@@ -500,6 +504,7 @@ scorecard |>
     table_body.vlines.color = "white"
   )
 ```
+
 # 1) Safety
 :::{.text-left}
 The Palm Beach MPO and the State of Florida have set a goal for **zero** fatalities and serious injuries on the roadway network. Florida and Metropolitan Planning Organizations (MPOs), are federally required to track and set targets for **total fatalities, fatality rate, serious injuries, serious injury rate**, and the total number of **non-motorized (pedestrian & bicyclists) fatalities and serious injuries**. For more information, [see FDOT's guidance document](https://palmbeachmpo.org/resources/).
@@ -563,7 +568,7 @@ highchart() |>
   hc_add_series(
     name = "Serious Injury Rate",
     data = serious_rate$Rate,
-    color = "#ff7f0e"
+    color = "#147BD1"
   )
 ```
 # 2) Infrastructure Conditions
@@ -573,6 +578,7 @@ highchart() |>
 
 Bridge structures over 20 feet are inspected every 2 years and rated on a scale of 1 to 9. To receive a "Good" assessment, each element of the bridge must be rated 7 or higher. Bridge elements include the deck, substructure, superstructure, culverts and retaining walls. Structures with any of these element with a rating of 4 or lower is considered "Poor".
 :::
+
 ## Bridges in Good Condition
 
 ```{r, echo=FALSE}
@@ -587,35 +593,39 @@ highchart() |>
   hc_chart(type = "line") |>
   hc_title(text = "Bridges in Good Condition") |>
   hc_subtitle(text = "Palm Beach County") |>
-  
   hc_xAxis(categories = good_condition$Year) |>
-  
-hc_yAxis(
-  title = list(text = "Percent of Bridges"),
-  min = 0.4,
-  max = 1,
-  tickInterval = 0.1,
-  labels = list(
-    formatter = JS("function() {
-      return (this.value * 100).toFixed(0) + '%';
-    }")
-  )
-) |>
-  
+  hc_yAxis(
+    title = list(text = "Percent of Bridges"),
+    min = 0.4,
+    max = 1,
+    tickInterval = 0.1,
+    labels = list(
+      formatter = JS("function() {
+        return (this.value * 100).toFixed(0) + '%';
+      }")
+    )
+  ) |>
   hc_add_series(
     name = "Good Condition",
     data = good_condition$Value,
-    color = "#2ca02c"
+    color = "#26D07C"
   ) |>
-  
   hc_add_series(
     name = "Target",
     data = rep(0.50, 8),
     dashStyle = "Dash",
-    color = "#000000"
+    color = "#646566"
   ) |>
-  
-  hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+  hc_tooltip(
+    formatter = JS(
+      "function() {
+        return '<b>' + (this.y * 100).toFixed(1) + '%</b>';
+      }"
+    )
+  ) |>
+  hc_plotOptions(
+    line = list(marker = list(enabled = TRUE))
+  )
 ```
 ## Bridges in Poor Condition
 
@@ -631,35 +641,41 @@ highchart() |>
   hc_chart(type = "line") |>
   hc_title(text = "Bridges in Poor Condition") |>
   hc_subtitle(text = "Palm Beach County") |>
-  
   hc_xAxis(categories = poor_condition$Year) |>
-  
- hc_yAxis(
-  title = list(text = "Percent of Bridges"),
-  min = 0,
-  max = 0.06,
-  tickInterval = 0.01,
-  labels = list(
-    formatter = JS("function() {
-      return (this.value * 100).toFixed(0) + '%';
-    }")
-  )
-) |>
-  
+  hc_yAxis(
+    title = list(text = "Percent of Bridges"),
+    min = 0,
+    max = 0.06,
+    tickInterval = 0.01,
+    labels = list(
+      formatter = JS("function() {
+        return (this.value * 100).toFixed(0) + '%';
+      }")
+    )
+  ) |>
   hc_add_series(
     name = "Poor Condition",
     data = poor_condition$Value,
-    color = "#d62728"
+    color = "#F8485E"
   ) |>
-  
   hc_add_series(
     name = "Target",
     data = rep(0.05, 8),
     dashStyle = "Dash",
-    color = "#000000"
+    color = "#646566"
   ) |>
-  
-  hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+  hc_tooltip(
+    formatter = JS(
+      "function() {
+        return '<b>' + (this.y * 100).toFixed(1) + '%</b>';
+      }"
+    )
+  ) |>
+  hc_plotOptions(
+    line = list(
+      marker = list(enabled = TRUE)
+    )
+  )
 ```
 ## Map of All Bridges
 
@@ -682,7 +698,7 @@ condition_order <- factor(
 )
 
 pal <- colorFactor(
-  palette = c("green", "orange", "red"),
+  palette = c("#26D07C", "orange", "#F8485E"),
   levels = levels(condition_order),
   ordered = TRUE
 )
@@ -758,6 +774,13 @@ highchart() |>
     color = "#888888",
     lineWidth = 1
   ) |>
+  hc_tooltip(
+  formatter = JS(
+    "function() {
+      return '<b>' + (this.y * 100).toFixed(1) + '%</b>';
+    }"
+  )
+) |>
   hc_plotOptions(line = list(marker = list(enabled = TRUE)))
 ```
 
@@ -799,6 +822,13 @@ highchart() |>
     color = "#888888",
     lineWidth = 1
   ) |>
+  hc_tooltip(
+  formatter = JS(
+    "function() {
+      return '<b>' + (this.y * 100).toFixed(1) + '%</b>';
+    }"
+  )
+) |>
   hc_plotOptions(line = list(marker = list(enabled = TRUE)))
 ```
 ### Non-Interstate Pavements in Good Condition
@@ -843,7 +873,13 @@ highchart() |>
     color = "#888888",
     lineWidth = 1
   ) |>
-  
+  hc_tooltip(
+  formatter = JS(
+    "function() {
+      return '<b>' + (this.y * 100).toFixed(1) + '%</b>';
+    }"
+  )
+) |>
   hc_plotOptions(line = list(marker = list(enabled = TRUE)))
 ```
 ### Non-Interstate Pavements in Poor Condition
@@ -887,7 +923,13 @@ highchart() |>
     color = "#888888",
     lineWidth = 1
   ) |>
-  
+  hc_tooltip(
+  formatter = JS(
+    "function() {
+      return '<b>' + (this.y * 100).toFixed(1) + '%</b>';
+    }"
+  )
+) |>
   hc_plotOptions(line = list(marker = list(enabled = TRUE)))
 ```
 ## Pavement Conditions Map
@@ -903,8 +945,15 @@ pavement <- st_read(
 
 pavement <- st_collection_extract(pavement, "LINESTRING")
 
+pavement$pm_pavement <- trimws(pavement$pm_pavement)
+
+pavement$pm_pavement <- factor(
+  pavement$pm_pavement,
+  levels = c("Good", "Fair", "Poor")
+)
+
 pal <- colorFactor(
-  palette = c("Good" = "green", "Fair" = "orange", "Poor" = "red"),
+  palette = c("#26D07C", "orange", "#F8485E"),
   domain = pavement$pm_pavement
 )
 
@@ -960,7 +1009,7 @@ reliability_levels <- c(
 
 reliability_colors <- c(
   "#26D07C",
-  "#147BD1",
+  "orange",
   "#F8485E"
 )
 
@@ -1040,7 +1089,13 @@ highchart() |>
     color = "#888888",
     lineWidth = 1
   ) |>
-  
+  hc_tooltip(
+  formatter = JS(
+    "function() {
+      return '<b>' + (this.y * 100).toFixed(1) + '%</b>';
+    }"
+  )
+) |>
   hc_plotOptions(line = list(marker = list(enabled = TRUE)))
 ```
 ### Travel Time on Non-Interstate Roads
@@ -1085,7 +1140,13 @@ highchart() |>
     color = "#888888",
     lineWidth = 1
   ) |>
-  
+  hc_tooltip(
+  formatter = JS(
+    "function() {
+      return '<b>' + (this.y * 100).toFixed(1) + '%</b>';
+    }"
+  )
+) |>
   hc_plotOptions(line = list(marker = list(enabled = TRUE)))
 ```
 ## Truck Travel Time Reliability
@@ -1159,7 +1220,7 @@ highchart() |>
   hc_add_series(
     name = "Percent of Vehicles",
     data = fixed_route_buses$Value,
-    color = "#F8485E"
+    color = "#147BD1"
   ) |>
   hc_add_series(
     name = "Target",
@@ -1215,7 +1276,7 @@ highchart() |>
   hc_add_series(
     name = "Percent of Vehicles",
     data = cutaway_buses$Value,
-    color = "#F8485E"
+    color = "#147BD1"
   ) |>
   
   hc_add_series(
@@ -1269,7 +1330,7 @@ highchart() |>
   hc_add_series(
     name = "Percent of Vehicles",
     data = support_automobiles$Value,
-    color = "#F8485E"
+    color = "#147BD1"
   ) |>
   hc_add_series(
     name = "Target",
@@ -1322,7 +1383,7 @@ highchart() |>
   hc_add_series(
     name = "Percent of Vehicles",
     data = support_trucks$Value,
-    color = "#F8485E"
+    color = "#147BD1"
   ) |>
   
   hc_tooltip(
@@ -1344,7 +1405,304 @@ highchart() |>
 :::{.text-left}
 **Transit vehicles keep Palm Beach moving.** The multi-county regional train service provider, Tri-Rail establishes goals so that most vehicles remain newer than their useful life, and most facilities remain in good condition. The goals below are for Tri-Rail. Palm Tran performance measure goals are shown on a separate page.
 :::
+
+## Rolling Stock - Locomotives, Coach Cars, Self-propelled Cars
+
+```{r, echo=FALSE}
+library(highcharter)
+
+rolling_stock <- data.frame(
+  Year = c(2019, 2020, 2021, 2022, 2023, 2024),
+  Value = c(0.25, 0.267, 0.263, 0.30, 0.32, 0.25),
+  Target = c(0.29, 0.29, 0.29, 0.29, 0.29, 0.29)
+)
+
+highchart() |>
+  hc_chart(type = "line") |>
+  
+  hc_title(text = "Rolling Stock - Locomotives, Coach Cars, Self-propelled Cars") |>
+  
+  hc_subtitle(text = "Tri-Rail") |>
+  
+  hc_xAxis(categories = rolling_stock$Year) |>
+  
+  hc_yAxis(
+    title = list(text = "Percent of Revenue Vehicles"),
+    min = 0,
+    max = 0.4,
+    tickInterval = 0.05,
+    labels = list(
+      formatter = JS("function() {
+        return (this.value * 100).toFixed(0) + '%';
+      }")
+    )
+  ) |>
+  
+  hc_add_series(
+    name = "Percent of Vehicles",
+    data = rolling_stock$Value,
+    color = "#147BD1"
+  ) |>
+  
+  hc_add_series(
+    name = "Target",
+    data = rolling_stock$Target,
+    dashStyle = "Dash",
+    color = "#000000"
+  ) |>
+  
+  hc_tooltip(
+    formatter = JS(
+      "function() {
+        return '<b>' + (this.y * 100).toFixed(0) + '%</b>';
+      }"
+    )
+  ) |>
+  
+  hc_plotOptions(
+    line = list(
+      marker = list(enabled = TRUE)
+    )
+  )
+```
+## Railway Track with Performance Restrictions
+
+```{r, echo=FALSE}
+library(highcharter)
+
+track_restrictions <- data.frame(
+  Year = c(2018, 2019, 2020, 2021, 2022, 2023, 2024),
+  Value = c(0.08, 0.033, 0.00, 0.021, 0.002, 0.002, 0.002),
+  Target = c(0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.03)
+)
+
+highchart() |>
+  hc_chart(type = "line") |>
+  
+  hc_title(text = "Railway Track with Performance Restrictions") |>
+  
+  hc_subtitle(text = "Tri-Rail") |>
+  
+  hc_xAxis(categories = track_restrictions$Year) |>
+  
+  hc_yAxis(
+    title = list(text = "Percent of Track"),
+    min = 0,
+    max = 0.10,
+    tickInterval = 0.01,
+    labels = list(
+      formatter = JS("function() {
+        return (this.value * 100).toFixed(0) + '%';
+      }")
+    )
+  ) |>
+  
+  hc_add_series(
+    name = "Percent of Track",
+    data = track_restrictions$Value,
+    color = "#147BD1"
+  ) |>
+  
+  hc_add_series(
+    name = "Target",
+    data = track_restrictions$Target,
+    dashStyle = "Dash",
+    color = "#000000"
+  ) |>
+  
+  hc_tooltip(
+    formatter = JS(
+      "function() {
+        return '<b>' + (this.y * 100).toFixed(0) + '%</b>';
+      }"
+    )
+  ) |>
+  
+  hc_plotOptions(
+    line = list(
+      marker = list(enabled = TRUE)
+    )
+  )
+```
+## Support & Maintenance Vehicles
+
+```{r, echo=FALSE}
+library(highcharter)
+
+support_maintenance <- data.frame(
+  Year = c(2019, 2020, 2021, 2022, 2023, 2024),
+  Value = c(0.222, 0.444, 0.50, 0.625, 0.41, 0.25),
+  Target = c(0.41, 0.41, 0.41, 0.41, 0.41, 0.41)
+)
+
+highchart() |>
+  hc_chart(type = "line") |>
+  
+  hc_title(text = "Support & Maintenance Vehicles") |>
+  
+  hc_subtitle(text = "Tri-Rail") |>
+  
+  hc_xAxis(categories = support_maintenance$Year) |>
+  
+  hc_yAxis(
+    title = list(text = "Percent of Vehicles"),
+    min = 0,
+    max = 0.7,
+    tickInterval = 0.1,
+    labels = list(
+      formatter = JS("function() {
+        return (this.value * 100).toFixed(0) + '%';
+      }")
+    )
+  ) |>
+  
+  hc_add_series(
+    name = "Percent of Vehicles",
+    data = support_maintenance$Value,
+    color = "#147BD1"
+  ) |>
+  
+  hc_add_series(
+    name = "Target",
+    data = support_maintenance$Target,
+    dashStyle = "Dash",
+    color = "#000000"
+  ) |>
+  
+  hc_tooltip(
+    formatter = JS(
+      "function() {
+        return '<b>' + (this.y * 100).toFixed(0) + '%</b>';
+      }"
+    )
+  ) |>
+  
+  hc_plotOptions(
+    line = list(
+      marker = list(enabled = TRUE)
+    )
+  )
+```
+## Passenger Terminals, Maintenance Facilities, Offices
+
+```{r, echo=FALSE}
+library(highcharter)
+
+facilities <- data.frame(
+  Year = c(2018, 2019, 2020, 2021, 2022, 2023, 2024),
+  Value = c(0.30, 0.05, 0.05, 0.05, 0.33, 0.00, 0.00),
+  Target = c(0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05)
+)
+
+highchart() |>
+  hc_chart(type = "line") |>
+  
+  hc_title(text = "Passenger Terminals, Maintenance Facilities, Offices") |>
+  
+  hc_subtitle(text = "Tri-Rail") |>
+  
+  hc_xAxis(categories = facilities$Year) |>
+  
+  hc_yAxis(
+    title = list(text = "Percent of Facilities"),
+    min = 0,
+    max = 0.4,
+    tickInterval = 0.05,
+    labels = list(
+      formatter = JS("function() {
+        return (this.value * 100).toFixed(0) + '%';
+      }")
+    )
+  ) |>
+  
+  hc_add_series(
+    name = "Percent of Facilities",
+    data = facilities$Value,
+    color = "#147BD1"
+  ) |>
+  
+  hc_add_series(
+    name = "Target",
+    data = facilities$Target,
+    dashStyle = "Dash",
+    color = "#000000"
+  ) |>
+  
+  hc_tooltip(
+    formatter = JS(
+      "function() {
+        return '<b>' + (this.y * 100).toFixed(0) + '%</b>';
+      }"
+    )
+  ) |>
+  
+  hc_plotOptions(
+    line = list(
+      marker = list(enabled = TRUE)
+    )
+  )
+```
+
 # 6) Transit Safety: Palm Tran
 :::{.text-left}
 **Palm Tran** is federally required to set targets for transit-related safety performance measures, including fatalities, injuries, safety events, and mechanical failures [(see FTA website for more details)](https://www.transit.dot.gov/PTASP). Palm Tran officially adopts targets and updates them annually through their [Public Transportation Agency Safety Plan (PTASP)](https://www.palmbeachtpa.org/static/sitefiles/Plans_and_Resources/Congestion_Management_Plan/PTASP_2021.pdf). Palm Tran coordinates with the Palm Beach MPO to formally adopt the targets and integrate them into the MPO's planning and programming process.
 :::
+
+## Palm Tran Safety Scorecard
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(readxl)
+library(dplyr)
+library(gt)
+
+scorecard <- read_excel(
+  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/Performance_Measures_R.xlsx",
+  sheet = "PT_Safety_SC"
+)
+
+scorecard |>
+  gt() |>
+  fmt_number(
+    columns = c(`Actual 2025`, `Target 2026`),
+    decimals = 2,
+    drop_trailing_zeros = TRUE
+  ) |>
+  cols_label(
+    Category = "Category",
+    Metric = "Metric",
+    `Actual 2025` = "Actual 2025",
+    `Target 2026` = "Target 2026"
+  ) |>
+  sub_missing(
+    columns = everything(),
+    missing_text = ""
+  ) |>
+  tab_style(
+    style = list(
+      cell_fill(color = "#62B5E5"),
+      cell_text(color = "white", weight = "bold", size = px(18))
+    ),
+    locations = cells_column_labels(everything())
+  ) |>
+  tab_style(
+    style = cell_text(weight = "bold", size = px(18), color = "#646566"),
+    locations = cells_body(columns = Metric)
+  ) |>
+  cols_align(
+    align = "center",
+    columns = c(`Actual 2025`, `Target 2026`)
+  ) |>
+  opt_row_striping() |>
+  tab_options(
+    table.width = pct(100),
+    table.font.size = px(18),
+    data_row.padding = px(14),
+    column_labels.border.bottom.color = "#D9E2EC",
+    table.border.top.color = "white",
+    table.border.bottom.color = "white",
+    row.striping.background_color = "#F7F9FC",
+    heading.background.color = "white",
+    table_body.hlines.color = "#E6ECF2",
+    table_body.vlines.color = "white"
+  )
+```
