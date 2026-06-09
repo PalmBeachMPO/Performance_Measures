@@ -157,7 +157,7 @@ scorecard |>
     locations = cells_column_labels(everything())
   ) |>
   tab_style(
-    style = cell_text(weight = "bold", size = px(18), color = "#1F2D3D"),
+    style = cell_text(weight = "bold", size = px(18), color = "#646566"),
     locations = cells_body(columns = Metric)
   ) |>
   cols_align(
@@ -171,18 +171,17 @@ scorecard |>
       rows = Goal_Met == "✕"
     )
   ) |>
-  tab_style(
-    style = cell_text(color = "green", weight = "bold", size = px(30)),
-    locations = cells_body(
-      columns = Goal_Met,
-      rows = Goal_Met == "✓"
-    )
-  ) |>
+  cols_width(
+  Metric ~ px(350),
+  Goal_Met ~ px(100),
+  Five_Year_Avg ~ px(120),
+  Target ~ px(100)
+) |>
   opt_row_striping() |>
   tab_options(
     table.width = pct(100),
-    table.font.size = px(18),
-    data_row.padding = px(14),
+    table.font.size = px(16),
+    data_row.padding = px(4),
     column_labels.border.bottom.color = "#D9E2EC",
     table.border.top.color = "white",
     table.border.bottom.color = "white",
@@ -219,7 +218,6 @@ scorecard |>
     decimals = 0
   ) |>
   cols_label(
-    Category = "Category",
     Metric = "Metric",
     Goal_Met = "Goal Met",
     `Actual (2024)` = "Actual (2024)",
@@ -237,9 +235,12 @@ scorecard |>
     locations = cells_column_labels(everything())
   ) |>
   tab_style(
-    style = cell_text(weight = "bold", size = px(18), color = "#646566"),
-    locations = cells_body(columns = Metric)
-  ) |>
+  style = cell_text(weight = "bold", size = px(18), color = "#646566"),
+  locations = cells_body(
+    columns = Metric,
+    rows = Metric %in% c("Bridges", "Pavement")
+  )
+) |>
   cols_align(
     align = "center",
     columns = c(Goal_Met, `Actual (2024)`, `Target (2025)`)
@@ -258,11 +259,17 @@ scorecard |>
       rows = Goal_Met == "✓"
     )
   ) |>
+  cols_width(
+  Metric ~ px(350),
+  Goal_Met ~ px(100),
+  `Actual (2024)` ~ px(120),
+  `Target (2025)` ~ px(120)
+) |>
   opt_row_striping() |>
   tab_options(
     table.width = pct(100),
-    table.font.size = px(18),
-    data_row.padding = px(14),
+    table.font.size = px(16),
+    data_row.padding = px(4),
     column_labels.border.bottom.color = "#D9E2EC",
     table.border.top.color = "white",
     table.border.bottom.color = "white",
@@ -319,7 +326,7 @@ fmt(
     locations = cells_column_labels(everything())
   ) |>
   tab_style(
-    style = cell_text(weight = "bold", size = px(18), color = "#1F2D3D"),
+    style = cell_text(weight = "bold", size = px(18), color = "#646566"),
     locations = cells_body(columns = Metric)
   ) |>
   cols_align(
@@ -327,14 +334,14 @@ fmt(
     columns = c(Goal_Met, `Actual (2024)`, `Target (2025)`)
   ) |>
   tab_style(
-    style = cell_text(color = "red", weight = "bold", size = px(30)),
+    style = cell_text(color = "#F8485E", weight = "bold", size = px(30)),
     locations = cells_body(
       columns = Goal_Met,
       rows = Goal_Met == "✕"
     )
   ) |>
   tab_style(
-    style = cell_text(color = "green", weight = "bold", size = px(30)),
+    style = cell_text(color = "#26D07C", weight = "bold", size = px(30)),
     locations = cells_body(
       columns = Goal_Met,
       rows = Goal_Met == "✓"
@@ -343,8 +350,8 @@ fmt(
   opt_row_striping() |>
   tab_options(
     table.width = pct(100),
-    table.font.size = px(18),
-    data_row.padding = px(14),
+    table.font.size = px(16),
+    data_row.padding = px(4),
     column_labels.border.bottom.color = "#D9E2EC",
     table.border.top.color = "white",
     table.border.bottom.color = "white",
@@ -386,7 +393,6 @@ scorecard |>
     decimals = 2
   ) |>
   cols_label(
-    Category = "Category",
     Metric = "Metric",
     Goal_Met = "Goal Met",
     `Actual (2023)` = "Actual (2023)",
@@ -404,12 +410,21 @@ scorecard |>
     locations = cells_column_labels(everything())
   ) |>
   tab_style(
-    style = cell_text(weight = "bold", size = px(18), color = "#646566"),
-    locations = cells_body(columns = Metric)
+    style = cell_text(weight = "bold", size = px(20), color = "#646566"),
+    locations = cells_body(
+      columns = Metric,
+      rows = Metric %in% c("Palm Tran", "Tri-Rail")
+    )
   ) |>
   cols_align(
     align = "center",
     columns = c(Goal_Met, `Actual (2023)`, `Target (2024)`)
+  ) |>
+  cols_width(
+    Metric ~ px(360),
+    Goal_Met ~ px(100),
+    `Actual (2023)` ~ px(130),
+    `Target (2024)` ~ px(130)
   ) |>
   tab_style(
     style = cell_text(color = "#F8485E", weight = "bold", size = px(30)),
@@ -428,8 +443,8 @@ scorecard |>
   opt_row_striping() |>
   tab_options(
     table.width = pct(100),
-    table.font.size = px(18),
-    data_row.padding = px(14),
+    table.font.size = px(16),
+    data_row.padding = px(4),
     column_labels.border.bottom.color = "#D9E2EC",
     table.border.top.color = "white",
     table.border.bottom.color = "white",
@@ -465,7 +480,6 @@ scorecard |>
     drop_trailing_zeros = TRUE
   ) |>
   cols_label(
-    Category = "Category",
     Metric = "Metric",
     `Goal Met` = "Goal Met",
     `Actual (2024)` = "Actual (2024)",
@@ -483,18 +497,27 @@ scorecard |>
     locations = cells_column_labels(everything())
   ) |>
   tab_style(
-    style = cell_text(weight = "bold", size = px(18), color = "#646566"),
-    locations = cells_body(columns = Metric)
+    style = cell_text(weight = "bold", size = px(20), color = "#646566"),
+    locations = cells_body(
+      columns = Metric,
+      rows = Metric %in% c("Fixed Route Bus", "Paratransit (Palm Tran Connection)")
+    )
   ) |>
   cols_align(
     align = "center",
     columns = c(`Goal Met`, `Actual (2024)`, `Target (2025)`)
   ) |>
+  cols_width(
+    Metric ~ px(360),
+    `Goal Met` ~ px(100),
+    `Actual (2024)` ~ px(130),
+    `Target (2025)` ~ px(130)
+  ) |>
   opt_row_striping() |>
   tab_options(
     table.width = pct(100),
-    table.font.size = px(18),
-    data_row.padding = px(14),
+    table.font.size = px(16),
+    data_row.padding = px(4),
     column_labels.border.bottom.color = "#D9E2EC",
     table.border.top.color = "white",
     table.border.bottom.color = "white",
@@ -504,11 +527,57 @@ scorecard |>
     table_body.vlines.color = "white"
   )
 ```
+:::{.text-left}
+Source: Palm Tran Public Transportation Agency Safety Plan
+:::
 
 # 1) Safety
 :::{.text-left}
 The Palm Beach MPO and the State of Florida have set a goal for **zero** fatalities and serious injuries on the roadway network. Florida and Metropolitan Planning Organizations (MPOs), are federally required to track and set targets for **total fatalities, fatality rate, serious injuries, serious injury rate**, and the total number of **non-motorized (pedestrian & bicyclists) fatalities and serious injuries**. For more information, [see FDOT's guidance document](https://palmbeachmpo.org/resources/).
 :::
+
+## Fatalities 
+
+```{r, echo=FALSE}
+library(highcharter)
+
+roadway_fatalities <- data.frame(
+  Year = c(2018, 2019, 2020, 2021, 2022, 2023, 2024),
+  Number = c(183, 174, 185, 215, 226, 181, 210)
+)
+
+highchart() |>
+  hc_chart(type = "column") |>
+  hc_title(text = "Roadway Fatalities by Year (5-YR Avg.)") |>
+  hc_subtitle(text = "Palm Beach County") |>
+  hc_xAxis(
+    categories = as.character(roadway_fatalities$Year),
+    title = list(text = "Year")
+  ) |>
+  hc_yAxis(
+    title = list(text = "Number of Fatalities"),
+    min = 0,
+    max = 250
+  ) |>
+  hc_add_series(
+    name = "Fatalities",
+    data = roadway_fatalities$Number,
+    color = "#62B5E5"
+  ) |>
+  hc_add_series(
+    name = "Target",
+    data = rep(0, nrow(roadway_fatalities)),
+    type = "line",
+    dashStyle = "Dash",
+    color = "#646566",
+    marker = list(enabled = FALSE)
+  ) |>
+  hc_tooltip(
+    pointFormat = "<b>{point.y}</b>"
+  )
+```
+
+
 ## Fatal Crash Rate
 
 ```{r, echo=FALSE}
@@ -541,11 +610,34 @@ serious_injuries <- data.frame(
   Number = c(1194, 1020, 916, 890, 818, 766, 683)
 )
 
-hchart(serious_injuries, "column", hcaes(x = Year, y = Number)) |>
+highchart() |>
+  hc_chart(type = "column") |>
   hc_title(text = "Serious Injuries by Year") |>
   hc_subtitle(text = "Palm Beach County") |>
-  hc_yAxis(title = list(text = "Number of Serious Injuries")) |>
-  hc_xAxis(title = list(text = "Year"))
+  hc_xAxis(
+    categories = as.character(serious_injuries$Year),
+    title = list(text = "Year")
+  ) |>
+  hc_yAxis(
+    title = list(text = "Number of Serious Injuries"),
+    min = 0
+  ) |>
+  hc_add_series(
+    name = "Serious Injuries",
+    data = serious_injuries$Number,
+    color = "#62B5E5"
+  ) |>
+  hc_add_series(
+    name = "Target",
+    data = rep(0, nrow(serious_injuries)),
+    type = "line",
+    dashStyle = "Dash",
+    color = "#646566",
+    marker = list(enabled = FALSE)
+  ) |>
+  hc_tooltip(
+    pointFormat = "<b>{point.y}</b>"
+  )
 ```
 ## Serious Injury Rate
 
@@ -571,6 +663,7 @@ highchart() |>
     color = "#147BD1"
   )
 ```
+
 # 2) Infrastructure Conditions
 ## Bridge Conditions
 :::{.text-left}
@@ -732,6 +825,138 @@ leaflet(data = bridges) |>
     opacity = 1
   )
 ```
+## Map of Bridges in Poor or Almost Poor Condition
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(readxl)
+library(dplyr)
+library(leaflet)
+
+bridges <- read_excel(
+  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/data/bidges_DA.xlsx"
+)
+
+bridges <- bridges |>
+  mutate(
+    Condition = trimws(Condition),
+    Condition = factor(
+      Condition,
+      levels = c("Good", "Fair", "Poor")
+    ),
+    bubble_size = sqrt(`Deck Width`) / 2
+  )
+
+pal <- colorFactor(
+  palette = c("#26D07C", "orange", "#F8485E"),
+  domain = bridges$Condition
+)
+
+leaflet(bridges) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addCircleMarkers(
+    lng = ~Longitude,
+    lat = ~Latitude,
+    radius = ~bubble_size,
+    color = ~pal(Condition),
+    fillColor = ~pal(Condition),
+    fillOpacity = 0.75,
+    opacity = 0.9,
+    weight = 1,
+    popup = ~paste0(
+      "<b>Bridge ID:</b> ", Bridge_ID,
+      "<br><b>Condition:</b> ", Condition,
+      "<br><b>Deck Width:</b> ", `Deck Width`
+    )
+  ) |>
+  setView(lng = -80.15, lat = 26.65, zoom = 9) |>
+  addLegend(
+    position = "bottomright",
+    pal = pal,
+    values = bridges$Condition,
+    title = "Bridge Condition",
+    opacity = 1
+  )
+```
+## Bridge Maintenance Responsibility
+
+```{r, echo=FALSE}
+library(highcharter)
+
+bridge_maint <- data.frame(
+  Agency = c(
+    "FDOT",
+    "County Highway Agency",
+    "City or Municipal Highway Agency",
+    "Other State Agencies",
+    "Town or Township Highway Agency"
+  ),
+  Poor = c(1344, 0, 505, 0, 0),
+  Fair = c(120516, 45878, 3725, 318, 931),
+  Good = c(439965, 147050, 18480, 2853, 2391)
+)
+
+# Convert counts to percentages
+totals <- bridge_maint$Poor + bridge_maint$Fair + bridge_maint$Good
+
+bridge_maint$Poor_pct <- bridge_maint$Poor / totals * 100
+bridge_maint$Fair_pct <- bridge_maint$Fair / totals * 100
+bridge_maint$Good_pct <- bridge_maint$Good / totals * 100
+
+highchart() |>
+  hc_chart(type = "bar") |>
+  
+  hc_title(text = "Bridge Maintenance Responsibility") |>
+  
+  hc_subtitle(text = "Palm Beach County") |>
+  
+  hc_xAxis(
+    categories = bridge_maint$Agency,
+    title = list(text = NULL)
+  ) |>
+  
+  hc_yAxis(
+    min = 0,
+    max = 100,
+    title = list(text = "Percent of Bridges"),
+    labels = list(
+      format = "{value}%"
+    )
+  ) |>
+  
+  hc_plotOptions(
+    series = list(
+      stacking = "normal"
+    )
+  ) |>
+  
+  hc_add_series(
+    name = "Poor",
+    data = round(bridge_maint$Poor_pct, 1),
+    color = "#F8485E"
+  ) |>
+  
+  hc_add_series(
+    name = "Fair",
+    data = round(bridge_maint$Fair_pct, 1),
+    color = "#2D7DC5"
+  ) |>
+  
+  hc_add_series(
+    name = "Good",
+    data = round(bridge_maint$Good_pct, 1),
+    color = "#26D07C"
+  ) |>
+  
+  hc_tooltip(
+    pointFormat = "<b>{point.y:.1f}%</b>"
+  ) |>
+  
+  hc_legend(
+    align = "left",
+    verticalAlign = "bottom"
+  )
+```
+
 ## Pavement Conditions
 :::{.text-left}
 **Pavement maintenance** provides for a smooth surface for drivers and other road users but also extends the life of the entire roadway by preventing deterioration of the road base. Pavement condition is required to be tracked for the Interstate and non-Interstate National Highway System (NHS). Good condition suggests no major investment is needed, while Poor condition suggests major reconstruction investment is needed..
