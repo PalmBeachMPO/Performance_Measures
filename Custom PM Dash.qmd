@@ -977,6 +977,7 @@ pal <- colorFactor(
 
 leaflet(bridges) |>
   addProviderTiles(providers$CartoDB.Positron) |>
+  
   addCircleMarkers(
     lng = ~Longitude,
     lat = ~Latitude,
@@ -986,19 +987,62 @@ leaflet(bridges) |>
     fillOpacity = 0.75,
     opacity = 0.9,
     weight = 1,
+    
     popup = ~paste0(
       "<b>Bridge ID:</b> ", Bridge_ID,
       "<br><b>Condition:</b> ", Condition,
-      "<br><b>Deck Width:</b> ", `Deck Width`
+      "<br><b>Deck Width:</b> ", round(`Deck Width`,1), " ft"
     )
   ) |>
-  setView(lng = -80.15, lat = 26.65, zoom = 9) |>
+  
+  setView(
+    lng = -80.15,
+    lat = 26.65,
+    zoom = 9
+  ) |>
+  
   addLegend(
     position = "bottomright",
     pal = pal,
     values = bridges$Condition,
     title = "Bridge Condition",
     opacity = 1
+  ) |>
+  
+  addControl(
+    html = "
+    <div style='background:white;
+                padding:10px;
+                border-radius:5px;
+                box-shadow:0 0 15px rgba(0,0,0,0.2);
+                line-height:1.4;'>
+
+      <b>Deck Width</b><br>
+
+      <svg width='140' height='75'>
+
+        <circle cx='18' cy='55' r='4'
+                fill='gray'
+                fill-opacity='0.5'
+                stroke='black'/>
+        <text x='35' y='59' font-size='12'>25 ft</text>
+
+        <circle cx='18' cy='38' r='8'
+                fill='gray'
+                fill-opacity='0.5'
+                stroke='black'/>
+        <text x='35' y='42' font-size='12'>100 ft</text>
+
+        <circle cx='18' cy='15' r='12'
+                fill='gray'
+                fill-opacity='0.5'
+                stroke='black'/>
+        <text x='35' y='19' font-size='12'>200+ ft</text>
+
+      </svg>
+
+    </div>",
+    position = "bottomleft"
   )
 ```
 :::{.text-left}
