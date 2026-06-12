@@ -1,5 +1,5 @@
 ---
-title: "Palm Beach MPO Federal Performance Measures"
+title: "Palm Beach Metropolitan Planning Organization Federal Performance Measures"
 
 format:
   html:
@@ -105,12 +105,30 @@ include-in-header:
         font-weight: 600;
       }
 
+      .print-button {
+        background-color: #62B5E5;
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        font-family: Tahoma, sans-serif;
+        font-weight: 700;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 20px 0;
+      }
+
+      .print-button:hover {
+        background-color: #147BD1;
+      }
+
     </style>
 ---
-
 ::: {.text-left}
 
 ![](images/Performance_measures_header_main.webp){width="100%"}
+<button onclick="window.print()" class="print-button">
+  Print / Save as PDF
+</button>
 
 The following goals, objectives, performance measures and targets are associated with the MPO’s Vision of a safe, efficient, and connected multimodal transportation system. The performance measures and targets are adopted into the MPO's 2050 Long Range Transportation Plan (LRTP) and integrated into the the MPO's 5-Year Transportation Improvement Program (TIP). 
 
@@ -530,12 +548,11 @@ scorecard |>
 :::{.text-left}
 Source: Palm Tran Public Transportation Agency Safety Plan
 :::
-
 # 1) Safety
 :::{.text-left}
 The Palm Beach MPO and the State of Florida have set a goal for **zero** fatalities and serious injuries on the roadway network. Florida and Metropolitan Planning Organizations (MPOs), are federally required to track and set targets for **total fatalities, fatality rate, serious injuries, serious injury rate**, and the total number of **non-motorized (pedestrian & bicyclists) fatalities and serious injuries**. For more information, [see FDOT's guidance document](https://palmbeachmpo.org/resources/).
 :::
-
+::: {.panel-tabset .nav-pills}
 ## Fatalities 
 
 ```{r, echo=FALSE}
@@ -572,11 +589,16 @@ highchart() |>
     color = "#646566",
     marker = list(enabled = FALSE)
   ) |>
-  hc_tooltip(
-    pointFormat = "<b>{point.y}</b>"
-  )
+hc_tooltip(
+  pointFormat = "<b>{point.y}</b>"
+) |>
+hc_exporting(
+  enabled = TRUE
+)
 ```
-
+:::{.text-left}
+Source: FDOT Source Book Number and Rate of Fatalities.
+:::
 
 ## Fatal Crash Rate
 
@@ -593,13 +615,26 @@ highchart() |>
   hc_title(text = "Fatal Crash Rate") |>
   hc_subtitle(text = "Palm Beach County") |>
   hc_xAxis(categories = fatal_rate$Year) |>
-  hc_yAxis(title = list(text = "Rate per 100M VMT")) |>
+  hc_yAxis(
+    title = list(text = "Rate per 100M VMT")
+  ) |>
   hc_add_series(
     name = "Fatal Crash Rate",
     data = fatal_rate$Rate,
     color = "#147BD1"
+  ) |>
+  hc_plotOptions(
+    line = list(
+      marker = list(enabled = TRUE)
+    )
+  ) |>
+  hc_exporting(
+    enabled = TRUE
   )
 ```
+:::{.text-left}
+Source: FDOT Source Book Number and Rate of Fatalities.
+:::
 ## Serious Injuries
 
 ```{r, echo=FALSE}
@@ -635,10 +670,16 @@ highchart() |>
     color = "#646566",
     marker = list(enabled = FALSE)
   ) |>
-  hc_tooltip(
-    pointFormat = "<b>{point.y}</b>"
-  )
+hc_tooltip(
+  pointFormat = "<b>{point.y}</b>"
+) |>
+hc_exporting(
+  enabled = TRUE
+)
 ```
+:::{.text-left}
+Source: Signal Four Analytics Florida Traffic Safety Dashboard for Palm Beach County.
+:::
 ## Serious Injury Rate
 
 ```{r, echo=FALSE}
@@ -655,15 +696,83 @@ highchart() |>
   hc_subtitle(text = "Palm Beach County") |>
   
   hc_xAxis(categories = serious_rate$Year) |>
-  hc_yAxis(title = list(text = "Rate per 100M VMT")) |>
+  
+  hc_yAxis(
+    title = list(text = "Rate per 100M VMT")
+  ) |>
   
   hc_add_series(
     name = "Serious Injury Rate",
     data = serious_rate$Rate,
     color = "#147BD1"
+  ) |>
+  
+  hc_plotOptions(
+    line = list(
+      marker = list(enabled = TRUE)
+    )
+  ) |>
+  
+  hc_exporting(
+    enabled = TRUE
   )
 ```
+:::{.text-left}
+Source: FDOT Source Book Federal Performance Measures.
+:::
+## Nonmotorized Fatalities and Serious Injuries
 
+```{r, echo=FALSE}
+library(highcharter)
+
+nonmotorized <- data.frame(
+  Year = c(2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024),
+  Number = c(196, 209, 214, 217, 198, 190, 201, 199, 241)
+)
+
+highchart() |>
+  hc_chart(type = "column") |>
+  
+  hc_title(text = "Nonmotorized Fatalities and Serious Injuries") |>
+  
+  hc_subtitle(text = "Palm Beach County") |>
+  
+  hc_xAxis(
+    categories = as.character(nonmotorized$Year),
+    title = list(text = "Year")
+  ) |>
+  
+  hc_yAxis(
+    title = list(text = "Number of Fatalities and Serious Injuries"),
+    min = 0,
+    max = 250
+  ) |>
+  
+  hc_add_series(
+    name = "Fatalities & Serious Injuries",
+    data = nonmotorized$Number,
+    color = "#62B5E5"
+  ) |>
+  
+  hc_add_series(
+    name = "Target",
+    data = rep(0, 9),
+    type = "line",
+    dashStyle = "Dash",
+    color = "#646566",
+    marker = list(enabled = FALSE)
+  ) |>
+hc_tooltip(
+  pointFormat = "<b>{point.y}</b>"
+) |>
+hc_exporting(
+  enabled = TRUE
+)
+```
+:::{.text-left}
+Source: FDOT State Safety Office Crash Analysis Reporting (CAR) database.
+:::
+:::
 # 2) Infrastructure Conditions
 ## Bridge Conditions
 :::{.text-left}
@@ -671,7 +780,7 @@ highchart() |>
 
 Bridge structures over 20 feet are inspected every 2 years and rated on a scale of 1 to 9. To receive a "Good" assessment, each element of the bridge must be rated 7 or higher. Bridge elements include the deck, substructure, superstructure, culverts and retaining walls. Structures with any of these element with a rating of 4 or lower is considered "Poor".
 :::
-
+::: {.panel-tabset .nav-pills}
 ## Bridges in Good Condition
 
 ```{r, echo=FALSE}
@@ -718,8 +827,14 @@ highchart() |>
   ) |>
   hc_plotOptions(
     line = list(marker = list(enabled = TRUE))
+  ) |>
+  hc_exporting(
+    enabled = TRUE
   )
 ```
+:::{.text-left}
+Source: FDOT Source Book Federal Performance Measures.
+:::
 ## Bridges in Poor Condition
 
 ```{r, echo=FALSE}
@@ -765,11 +880,17 @@ highchart() |>
     )
   ) |>
   hc_plotOptions(
-    line = list(
-      marker = list(enabled = TRUE)
-    )
+    line = list(marker = list(enabled = TRUE))
+  ) |>
+  hc_exporting(
+    enabled = TRUE
   )
 ```
+:::{.text-left}
+Source: FDOT Source Book Federal Performance Measures.
+:::
+:::
+::: {.panel-tabset .nav-pills}
 ## Map of All Bridges
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
@@ -825,6 +946,9 @@ leaflet(data = bridges) |>
     opacity = 1
   )
 ```
+:::{.text-left}
+Source: National Bridge Inventory.
+:::
 ## Map of Bridges in Poor or Almost Poor Condition
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
@@ -877,6 +1001,9 @@ leaflet(bridges) |>
     opacity = 1
   )
 ```
+:::{.text-left}
+Source: National Bridge Inventory.
+:::
 ## Bridge Maintenance Responsibility
 
 ```{r, echo=FALSE}
@@ -956,11 +1083,16 @@ highchart() |>
     verticalAlign = "bottom"
   )
 ```
+:::{.text-left}
+Source: National Bridge Inventory.
+:::
+:::
 
 ## Pavement Conditions
 :::{.text-left}
 **Pavement maintenance** provides for a smooth surface for drivers and other road users but also extends the life of the entire roadway by preventing deterioration of the road base. Pavement condition is required to be tracked for the Interstate and non-Interstate National Highway System (NHS). Good condition suggests no major investment is needed, while Poor condition suggests major reconstruction investment is needed..
 :::
+::: {.panel-tabset .nav-pills}
 ### Interstate Pavements in Good Condition
 
 ```{r, echo=FALSE}
@@ -1006,9 +1138,18 @@ highchart() |>
     }"
   )
 ) |>
-  hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+  hc_plotOptions(
+    line = list(
+      marker = list(enabled = TRUE)
+    )
+  ) |>
+  hc_exporting(
+    enabled = TRUE
+  )
 ```
-
+:::{.text-left}
+Source: FDOT Source Book Federal Performance Measures.
+:::
 ### Interstate Pavements in Poor Condition
 
 ```{r, echo=FALSE}
@@ -1054,8 +1195,18 @@ highchart() |>
     }"
   )
 ) |>
-  hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+  hc_plotOptions(
+    line = list(
+      marker = list(enabled = TRUE)
+    )
+  ) |>
+  hc_exporting(
+    enabled = TRUE
+  )
 ```
+:::{.text-left}
+Source: FDOT Source Book Federal Performance Measures.
+:::
 ### Non-Interstate Pavements in Good Condition
 
 ```{r, echo=FALSE}
@@ -1105,8 +1256,18 @@ highchart() |>
     }"
   )
 ) |>
-  hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+  hc_plotOptions(
+    line = list(
+      marker = list(enabled = TRUE)
+    )
+  ) |>
+  hc_exporting(
+    enabled = TRUE
+  )
 ```
+:::{.text-left}
+Source: FDOT Source Book Federal Performance Measures.
+:::
 ### Non-Interstate Pavements in Poor Condition
 
 ```{r, echo=FALSE}
@@ -1155,8 +1316,19 @@ highchart() |>
     }"
   )
 ) |>
-  hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+  hc_plotOptions(
+    line = list(
+      marker = list(enabled = TRUE)
+    )
+  ) |>
+  hc_exporting(
+    enabled = TRUE
+  )
 ```
+:::{.text-left}
+Source: FDOT Source Book Federal Performance Measures.
+:::
+:::
 ## Pavement Conditions Map
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
@@ -1266,12 +1438,16 @@ leaflet(system_reliability) |>
     opacity = 1
   )
 ```
+:::{.text-left}
+Source: FDOT Systems Forecasting & Trends Office, 2025
+:::
 ## Travel Time Reliability
 :::{.text-left}
 **While we can't build our way out of traffic congestion, we can make traffic congestion more reliable.** Travel time reliability is measured on the Interstate and non-Interstate National Highway System (NHS). 
 
 Travel time reliability aims to help people make informed choices about when they travel, which mode(s) they take, and which routes they choose. In a more reliable system, people can have better expectations about travel times and plan accordingly. Travel time reliability is measured as a share of person-miles that are reliable, or not abnormal for a particular location at a particular time. A roadway segment is considered reliable when the time required to travel on it is no more than a 50% increase from the regular travel time expected on that segment. Incident-based congestion caused by crashes or traffic hazards lessen travel time reliability.
 :::
+::: {.panel-tabset .nav-pills}
 ### Travel Time on the Interstate
 
 ```{r, echo=FALSE}
@@ -1321,8 +1497,18 @@ highchart() |>
     }"
   )
 ) |>
-  hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+  hc_plotOptions(
+    line = list(
+      marker = list(enabled = TRUE)
+    )
+  ) |>
+  hc_exporting(
+    enabled = TRUE
+  )
 ```
+:::{.text-left}
+Source: FDOT Source Book Federal Performance Measures.
+:::
 ### Travel Time on Non-Interstate Roads
 
 ```{r, echo=FALSE}
@@ -1372,8 +1558,19 @@ highchart() |>
     }"
   )
 ) |>
-  hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+  hc_plotOptions(
+    line = list(
+      marker = list(enabled = TRUE)
+    )
+  ) |>
+  hc_exporting(
+    enabled = TRUE
+  )
 ```
+:::{.text-left}
+Source: FDOT Source Book Federal Performance Measures.
+:::
+:::
 ## Truck Travel Time Reliability
 :::{.text-left}
 **Truck Travel Time Reliability** is a measure is an index measure calculating the reliability of truck freight in a region. Reliability is less about eliminating congestion for freight and more about lessening unpredictable congestion (for example, incident-related congested caused by crashes or roadway hazards). The region has established a goal of a Truck Travel Time Reliability index score of less than 2.0.
@@ -1408,13 +1605,23 @@ highchart() |>
     color = "#888888",
     lineWidth = 1
   ) |>
-  hc_plotOptions(line = list(marker = list(enabled = TRUE)))
+  hc_plotOptions(
+    line = list(
+      marker = list(enabled = TRUE)
+    )
+  ) |>
+  hc_exporting(
+    enabled = TRUE
+  )
 ```
+:::{.text-left}
+Source: FDOT Source Book Federal Performance Measures.
+:::
 # 4) Transit Assets: Palm Tran
 :::{.text-left}
 **Palm Tran** establishes performance measures for vehicles to track their useful life, and most facilities to ensure they remain in good condition. Below are the metrics tracked for Palm Tran. Tri-Rail performance measure goals are shown on a separate page. 
 :::
-
+::: {.panel-tabset .nav-pills}
 ## Fixed Route Buses Exceeding Useful Life
 
 ```{r, echo=FALSE}
@@ -1464,8 +1671,14 @@ highchart() |>
     line = list(
       marker = list(enabled = TRUE)
     )
+  ) |>
+  hc_exporting(
+    enabled = TRUE
   )
 ```
+:::{.text-left}
+Source: Palm Tran Asset Management Inventory.
+:::
 ## Cutaway Buses Exceeding Useful Life
 
 ```{r, echo=FALSE}
@@ -1518,13 +1731,18 @@ highchart() |>
       }"
     )
   ) |>
-  
   hc_plotOptions(
     line = list(
       marker = list(enabled = TRUE)
     )
+  ) |>
+  hc_exporting(
+    enabled = TRUE
   )
 ```
+:::{.text-left}
+Source: Palm Tran Asset Management Inventory.
+:::
 ## Support Automobiles Exceeding Useful Life
 
 ```{r, echo=FALSE}
@@ -1571,9 +1789,17 @@ highchart() |>
     )
   ) |>
   hc_plotOptions(
-    line = list(marker = list(enabled = TRUE))
+    line = list(
+      marker = list(enabled = TRUE)
+    )
+  ) |>
+  hc_exporting(
+    enabled = TRUE
   )
 ```
+:::{.text-left}
+Source: Palm Tran Asset Management Inventory.
+:::
 ## Support Trucks Exceeding Useful Life
 
 ```{r, echo=FALSE}
@@ -1618,19 +1844,24 @@ highchart() |>
       }"
     )
   ) |>
-  
   hc_plotOptions(
     line = list(
       marker = list(enabled = TRUE)
     )
+  ) |>
+  hc_exporting(
+    enabled = TRUE
   )
 ```
-
+:::{.text-left}
+Source: Palm Tran Asset Management Inventory.
+:::
+:::
 # 5) Transit Assets: Tri-Rail
 :::{.text-left}
 **Transit vehicles keep Palm Beach moving.** The multi-county regional train service provider, Tri-Rail establishes goals so that most vehicles remain newer than their useful life, and most facilities remain in good condition. The goals below are for Tri-Rail. Palm Tran performance measure goals are shown on a separate page.
 :::
-
+::: {.panel-tabset .nav-pills}
 ## Rolling Stock - Locomotives, Coach Cars, Self-propelled Cars
 
 ```{r, echo=FALSE}
@@ -1683,13 +1914,18 @@ highchart() |>
       }"
     )
   ) |>
-  
   hc_plotOptions(
     line = list(
       marker = list(enabled = TRUE)
     )
+  ) |>
+  hc_exporting(
+    enabled = TRUE
   )
 ```
+:::{.text-left}
+Source: Tri-Rail Transit Asset Management Plan.
+:::
 ## Railway Track with Performance Restrictions
 
 ```{r, echo=FALSE}
@@ -1742,13 +1978,18 @@ highchart() |>
       }"
     )
   ) |>
-  
   hc_plotOptions(
     line = list(
       marker = list(enabled = TRUE)
     )
+  ) |>
+  hc_exporting(
+    enabled = TRUE
   )
 ```
+:::{.text-left}
+Source: Tri-Rail Transit Asset Management Plan.
+:::
 ## Support & Maintenance Vehicles
 
 ```{r, echo=FALSE}
@@ -1801,13 +2042,18 @@ highchart() |>
       }"
     )
   ) |>
-  
   hc_plotOptions(
     line = list(
       marker = list(enabled = TRUE)
     )
+  ) |>
+  hc_exporting(
+    enabled = TRUE
   )
 ```
+:::{.text-left}
+Source: Tri-Rail Transit Asset Management Plan.
+:::
 ## Passenger Terminals, Maintenance Facilities, Offices
 
 ```{r, echo=FALSE}
@@ -1860,14 +2106,19 @@ highchart() |>
       }"
     )
   ) |>
-  
   hc_plotOptions(
     line = list(
       marker = list(enabled = TRUE)
     )
+  ) |>
+  hc_exporting(
+    enabled = TRUE
   )
 ```
-
+:::{.text-left}
+Source: Tri-Rail Transit Asset Management Plan.
+:::
+:::
 # 6) Transit Safety: Palm Tran
 :::{.text-left}
 **Palm Tran** is federally required to set targets for transit-related safety performance measures, including fatalities, injuries, safety events, and mechanical failures [(see FTA website for more details)](https://www.transit.dot.gov/PTASP). Palm Tran officially adopts targets and updates them annually through their [Public Transportation Agency Safety Plan (PTASP)](https://www.palmbeachtpa.org/static/sitefiles/Plans_and_Resources/Congestion_Management_Plan/PTASP_2021.pdf). Palm Tran coordinates with the Palm Beach MPO to formally adopt the targets and integrate them into the MPO's planning and programming process.
@@ -1893,7 +2144,6 @@ scorecard |>
     drop_trailing_zeros = TRUE
   ) |>
   cols_label(
-    Category = "Category",
     Metric = "Metric",
     `Actual 2025` = "Actual 2025",
     `Target 2026` = "Target 2026"
@@ -1910,18 +2160,26 @@ scorecard |>
     locations = cells_column_labels(everything())
   ) |>
   tab_style(
-    style = cell_text(weight = "bold", size = px(18), color = "#646566"),
-    locations = cells_body(columns = Metric)
+    style = cell_text(weight = "bold", size = px(20), color = "#646566"),
+    locations = cells_body(
+      columns = Metric,
+      rows = Metric %in% c("Fixed Route Bus", "Paratransit (Palm Tran Connection)")
+    )
   ) |>
   cols_align(
     align = "center",
     columns = c(`Actual 2025`, `Target 2026`)
   ) |>
+  cols_width(
+    Metric ~ px(360),
+    `Actual 2025` ~ px(130),
+    `Target 2026` ~ px(130)
+  ) |>
   opt_row_striping() |>
   tab_options(
     table.width = pct(100),
-    table.font.size = px(18),
-    data_row.padding = px(14),
+    table.font.size = px(16),
+    data_row.padding = px(4),
     column_labels.border.bottom.color = "#D9E2EC",
     table.border.top.color = "white",
     table.border.bottom.color = "white",
@@ -1931,3 +2189,6 @@ scorecard |>
     table_body.vlines.color = "white"
   )
 ```
+:::{.text-left}
+Source: Palm Tran Public Transportation Agency Safety Plan.
+:::
