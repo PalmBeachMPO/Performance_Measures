@@ -136,6 +136,125 @@ This interactive dashboard provides a way to view the most up-to-date informatio
 :::
 # Palm Beach MPO Federal Performance Measures Scorecard
 
+## Test Consolidated Scorecard
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(readxl)
+library(dplyr)
+library(gt)
+
+scorecard <- read_excel(
+  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/Performance_Measures_R.xlsx",
+  sheet = "Scorecard_All"
+)
+
+scorecard <- scorecard |>
+  mutate(
+    Goal_Met_Display = case_when(
+      Goal_Met == "Yes" ~ "✓",
+      Goal_Met == "No" ~ "✕",
+      Goal_Met == "New" ~ "New",
+      TRUE ~ ""
+    )
+  )
+
+scorecard |>
+  select(
+    Metric,
+    Goal_Met_Display,
+    `Actual (2024)`,
+    `Target (2025)`
+  ) |>
+  gt() |>
+  cols_label(
+    Metric = "Metric",
+    Goal_Met_Display = "Goal Met",
+    `Actual (2024)` = "Actual (2024)",
+    `Target (2025)` = "Target (2025)"
+  ) |>
+  sub_missing(
+    columns = everything(),
+    missing_text = ""
+  ) |>
+  tab_style(
+    style = list(
+      cell_fill(color = "#62B5E5"),
+      cell_text(color = "white", weight = "bold", size = px(18))
+    ),
+    locations = cells_column_labels(everything())
+  ) |>
+  tab_style(
+    style = cell_text(weight = "bold", size = px(20), color = "#646566"),
+    locations = cells_body(
+      columns = Metric,
+      rows = Metric %in% c(
+        "SAFETY (5 -YR Avg.)",
+        "INFRASTRUCTURE",
+        "SYSTEM PERFORAMANCE RELIABILITY",
+        "TRANSIT ASSET MANAGEMENT",
+        "TRANSIT SAFETY: PALM TRAN"
+      )
+    )
+  ) |>
+  tab_style(
+    style = cell_text(weight = "bold", size = px(18), color = "#646566"),
+    locations = cells_body(
+      columns = Metric,
+      rows = Metric %in% c(
+        "Bridges",
+        "Pavement",
+        "Palm Tran",
+        "Tri-Rail",
+        "Fixed Route Bus",
+        "Paratransit (Palm Tran Connection)"
+      )
+    )
+  ) |>
+  cols_align(
+    align = "center",
+    columns = c(Goal_Met_Display, `Actual (2024)`, `Target (2025)`)
+  ) |>
+  cols_width(
+    Metric ~ px(430),
+    Goal_Met_Display ~ px(100),
+    `Actual (2024)` ~ px(140),
+    `Target (2025)` ~ px(140)
+  ) |>
+  tab_style(
+    style = cell_text(color = "#F8485E", weight = "bold", size = px(30)),
+    locations = cells_body(
+      columns = Goal_Met_Display,
+      rows = Goal_Met_Display == "✕"
+    )
+  ) |>
+  tab_style(
+    style = cell_text(color = "#26D07C", weight = "bold", size = px(30)),
+    locations = cells_body(
+      columns = Goal_Met_Display,
+      rows = Goal_Met_Display == "✓"
+    )
+  ) |>
+  tab_style(
+    style = cell_text(color = "#646566", weight = "bold", size = px(16)),
+    locations = cells_body(
+      columns = Goal_Met_Display,
+      rows = Goal_Met_Display == "New"
+    )
+  ) |>
+  opt_row_striping() |>
+  tab_options(
+    table.width = pct(100),
+    table.font.size = px(16),
+    data_row.padding = px(4),
+    column_labels.border.bottom.color = "#D9E2EC",
+    table.border.top.color = "white",
+    table.border.bottom.color = "white",
+    row.striping.background_color = "#F7F9FC",
+    heading.background.color = "white",
+    table_body.hlines.color = "#E6ECF2",
+    table_body.vlines.color = "white"
+  )
+```
 ## Safety
 :::{.text-left}
 ![](images/PM_Safety.png){width="%"} 
@@ -550,7 +669,7 @@ Source: Palm Tran Public Transportation Agency Safety Plan
 :::
 # 1) Safety
 :::{.text-left}
-The Palm Beach MPO and the State of Florida have set a goal for **zero** fatalities and serious injuries on the roadway network. Florida and Metropolitan Planning Organizations (MPOs), are federally required to track and set targets for **total fatalities, fatality rate, serious injuries, serious injury rate**, and the total number of **non-motorized (pedestrian & bicyclists) fatalities and serious injuries**. For more information, [see FDOT's guidance document](https://palmbeachmpo.org/resources/).
+The Palm Beach MPO and the State of Florida have set a goal for **zero** fatalities and serious injuries on the roadway network. Florida and Metropolitan Planning Organizations (MPOs), are federally required to track and set targets for **total fatalities, fatality rate, serious injuries, serious injury rate**, and the total number of **non-motorized (pedestrian & bicyclists) fatalities and serious injuries**. For more information, [see FDOT's guidance document](https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/planning/fto/pdis-documents/performance-measures-methodology-and-data-report.pdf?sfvrsn=72082866_1).
 :::
 ::: {.panel-tabset .nav-pills}
 ## Fatalities 
@@ -564,7 +683,10 @@ roadway_fatalities <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "column") |>
+  hc_chart(
+  type = "column",
+  backgroundColor = "white"
+) |>
   hc_title(text = "Roadway Fatalities by Year (5-YR Avg.)") |>
   hc_subtitle(text = "Palm Beach County") |>
   hc_xAxis(
@@ -579,14 +701,14 @@ highchart() |>
   hc_add_series(
     name = "Fatalities",
     data = roadway_fatalities$Number,
-    color = "#62B5E5"
+    color = "#147BD1"
   ) |>
   hc_add_series(
     name = "Target",
     data = rep(0, nrow(roadway_fatalities)),
     type = "line",
     dashStyle = "Dash",
-    color = "#646566",
+    color = "#000000",
     marker = list(enabled = FALSE)
   ) |>
 hc_tooltip(
@@ -611,7 +733,10 @@ fatal_rate <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   hc_title(text = "Fatal Crash Rate") |>
   hc_subtitle(text = "Palm Beach County") |>
   hc_xAxis(categories = fatal_rate$Year) |>
@@ -646,7 +771,10 @@ serious_injuries <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "column") |>
+  hc_chart(
+  type = "column",
+  backgroundColor = "white"
+) |>
   hc_title(text = "Serious Injuries by Year") |>
   hc_subtitle(text = "Palm Beach County") |>
   hc_xAxis(
@@ -660,14 +788,14 @@ highchart() |>
   hc_add_series(
     name = "Serious Injuries",
     data = serious_injuries$Number,
-    color = "#62B5E5"
+    color = "#147BD1"
   ) |>
   hc_add_series(
     name = "Target",
     data = rep(0, nrow(serious_injuries)),
     type = "line",
     dashStyle = "Dash",
-    color = "#646566",
+    color = "#000000",
     marker = list(enabled = FALSE)
   ) |>
 hc_tooltip(
@@ -691,7 +819,10 @@ serious_rate <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   hc_title(text = "Serious Injury Rate") |>
   hc_subtitle(text = "Palm Beach County") |>
   
@@ -731,7 +862,10 @@ nonmotorized <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "column") |>
+  hc_chart(
+  type = "column",
+  backgroundColor = "white"
+) |>
   
   hc_title(text = "Nonmotorized Fatalities and Serious Injuries") |>
   
@@ -751,7 +885,7 @@ highchart() |>
   hc_add_series(
     name = "Fatalities & Serious Injuries",
     data = nonmotorized$Number,
-    color = "#62B5E5"
+    color = "#147BD1"
   ) |>
   
   hc_add_series(
@@ -759,7 +893,7 @@ highchart() |>
     data = rep(0, 9),
     type = "line",
     dashStyle = "Dash",
-    color = "#646566",
+    color = "#000000",
     marker = list(enabled = FALSE)
   ) |>
 hc_tooltip(
@@ -792,7 +926,10 @@ good_condition <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   hc_title(text = "Bridges in Good Condition") |>
   hc_subtitle(text = "Palm Beach County") |>
   hc_xAxis(categories = good_condition$Year) |>
@@ -816,7 +953,7 @@ highchart() |>
     name = "Target",
     data = rep(0.50, 8),
     dashStyle = "Dash",
-    color = "#646566"
+    color = "#000000"
   ) |>
   hc_tooltip(
     formatter = JS(
@@ -846,7 +983,10 @@ poor_condition <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   hc_title(text = "Bridges in Poor Condition") |>
   hc_subtitle(text = "Palm Beach County") |>
   hc_xAxis(categories = poor_condition$Year) |>
@@ -870,7 +1010,7 @@ highchart() |>
     name = "Target",
     data = rep(0.05, 8),
     dashStyle = "Dash",
-    color = "#646566"
+    color = "#000000"
   ) |>
   hc_tooltip(
     formatter = JS(
@@ -949,105 +1089,7 @@ leaflet(data = bridges) |>
 :::{.text-left}
 Source: National Bridge Inventory.
 :::
-## Map of Bridges in Poor or Almost Poor Condition
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
-library(readxl)
-library(dplyr)
-library(leaflet)
-
-bridges <- read_excel(
-  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/data/bidges_DA.xlsx"
-)
-
-bridges <- bridges |>
-  mutate(
-    Condition = trimws(Condition),
-    Condition = factor(
-      Condition,
-      levels = c("Good", "Fair", "Poor")
-    ),
-    bubble_size = sqrt(`Deck Width`) / 2
-  )
-
-pal <- colorFactor(
-  palette = c("#26D07C", "orange", "#F8485E"),
-  domain = bridges$Condition
-)
-
-leaflet(bridges) |>
-  addProviderTiles(providers$CartoDB.Positron) |>
-  
-  addCircleMarkers(
-    lng = ~Longitude,
-    lat = ~Latitude,
-    radius = ~bubble_size,
-    color = ~pal(Condition),
-    fillColor = ~pal(Condition),
-    fillOpacity = 0.75,
-    opacity = 0.9,
-    weight = 1,
-    
-    popup = ~paste0(
-      "<b>Bridge ID:</b> ", Bridge_ID,
-      "<br><b>Condition:</b> ", Condition,
-      "<br><b>Deck Width:</b> ", round(`Deck Width`,1), " ft"
-    )
-  ) |>
-  
-  setView(
-    lng = -80.15,
-    lat = 26.65,
-    zoom = 9
-  ) |>
-  
-  addLegend(
-    position = "bottomright",
-    pal = pal,
-    values = bridges$Condition,
-    title = "Bridge Condition",
-    opacity = 1
-  ) |>
-  
-  addControl(
-    html = "
-    <div style='background:white;
-                padding:10px;
-                border-radius:5px;
-                box-shadow:0 0 15px rgba(0,0,0,0.2);
-                line-height:1.4;'>
-
-      <b>Deck Width</b><br>
-
-      <svg width='140' height='75'>
-
-        <circle cx='18' cy='55' r='4'
-                fill='gray'
-                fill-opacity='0.5'
-                stroke='black'/>
-        <text x='35' y='59' font-size='12'>25 ft</text>
-
-        <circle cx='18' cy='38' r='8'
-                fill='gray'
-                fill-opacity='0.5'
-                stroke='black'/>
-        <text x='35' y='42' font-size='12'>100 ft</text>
-
-        <circle cx='18' cy='15' r='12'
-                fill='gray'
-                fill-opacity='0.5'
-                stroke='black'/>
-        <text x='35' y='19' font-size='12'>200+ ft</text>
-
-      </svg>
-
-    </div>",
-    position = "bottomleft"
-  )
-```
-:::{.text-left}
-Source: National Bridge Inventory.
-:::
 ## Bridge Maintenance Responsibility
 
 ```{r, echo=FALSE}
@@ -1148,7 +1190,10 @@ interstate_good <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   hc_title(text = "Interstate Pavements in Good Condition") |>
   hc_subtitle(text = "Palm Beach County") |>
   hc_xAxis(categories = interstate_good$Year) |>
@@ -1166,13 +1211,13 @@ highchart() |>
   hc_add_series(
     name = "Good Condition",
     data = interstate_good$Value,
-    color = "#2ca02c"
+    color = "#26D07C"
   ) |>
   hc_add_series(
     name = "Target",
     data = rep(0.60, 9),
     dashStyle = "Dash",
-    color = "#888888",
+    color = "#000000",
     lineWidth = 1
   ) |>
   hc_tooltip(
@@ -1205,7 +1250,10 @@ interstate_poor <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   hc_title(text = "Interstate Pavements in Poor Condition") |>
   hc_subtitle(text = "Palm Beach County") |>
   hc_xAxis(categories = interstate_poor$Year) |>
@@ -1223,13 +1271,13 @@ highchart() |>
   hc_add_series(
     name = "Poor Condition",
     data = interstate_poor$Value,
-    color = "#d62728"
+    color = "#F8485E"
   ) |>
   hc_add_series(
     name = "Target",
     data = rep(0.05, 9),
     dashStyle = "Dash",
-    color = "#888888",
+    color = "#000000",
     lineWidth = 1
   ) |>
   hc_tooltip(
@@ -1251,6 +1299,8 @@ highchart() |>
 :::{.text-left}
 Source: FDOT Source Book Federal Performance Measures.
 :::
+:::
+::: {.panel-tabset .nav-pills}
 ### Non-Interstate Pavements in Good Condition
 
 ```{r, echo=FALSE}
@@ -1262,7 +1312,10 @@ nonint_good <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   hc_title(text = "Non-Interstate Pavements in Good Condition") |>
   hc_subtitle(text = "Palm Beach County") |>
   
@@ -1283,14 +1336,14 @@ highchart() |>
   hc_add_series(
     name = "Good Condition",
     data = nonint_good$Value,
-    color = "#2ca02c"
+    color = "#26D07C"
   ) |>
   
   hc_add_series(
     name = "Target",
     data = rep(0.40, 9),
     dashStyle = "Dash",
-    color = "#888888",
+    color = "#000000",
     lineWidth = 1
   ) |>
   hc_tooltip(
@@ -1323,7 +1376,10 @@ nonint_poor <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   hc_title(text = "Non-Interstate Pavements in Poor Condition") |>
   hc_subtitle(text = "Palm Beach County") |>
   
@@ -1343,14 +1399,14 @@ highchart() |>
   hc_add_series(
     name = "Poor Condition",
     data = nonint_poor$Value,
-    color = "#d62728"
+    color = "#F8485E"
   ) |>
   
   hc_add_series(
     name = "Target",
     data = rep(0.05, 9),
     dashStyle = "Dash",
-    color = "#888888",
+    color = "#000000",
     lineWidth = 1
   ) |>
   hc_tooltip(
@@ -1487,9 +1543,9 @@ Source: FDOT Systems Forecasting & Trends Office, 2025
 :::
 ## Travel Time Reliability
 :::{.text-left}
-**While we can't build our way out of traffic congestion, we can make traffic congestion more reliable.** Travel time reliability is measured on the Interstate and non-Interstate National Highway System (NHS). 
+**Travel time reliability is measured on the Interstate and non-Interstate National Highway System (NHS).** 
 
-Travel time reliability aims to help people make informed choices about when they travel, which mode(s) they take, and which routes they choose. In a more reliable system, people can have better expectations about travel times and plan accordingly. Travel time reliability is measured as a share of person-miles that are reliable, or not abnormal for a particular location at a particular time. A roadway segment is considered reliable when the time required to travel on it is no more than a 50% increase from the regular travel time expected on that segment. Incident-based congestion caused by crashes or traffic hazards lessen travel time reliability.
+Travel time reliability aims to help people make informed choices about when they travel, which mode(s) they take, and which routes they choose. In a more reliable system, people can have better expectations about travel times and plan accordingly. Travel time reliability is measured as a share of person-miles that are reliable, or not abnormal for a particular location at a particular time. A roadway segment is considered reliable when the time required to travel on it is no more than a 50% increase from the regular travel time expected on that segment. Incident-based congestion caused by crashes or traffic hazards lessen travel time reliability. While we can't build our way out of traffic congestion, we can make traffic congestion more reliable.
 :::
 ::: {.panel-tabset .nav-pills}
 ### Travel Time on the Interstate
@@ -1503,7 +1559,10 @@ interstate_tt <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   hc_title(text = "Travel Time Reliability (Interstate)") |>
   hc_subtitle(text = "Palm Beach County") |>
   
@@ -1531,7 +1590,7 @@ highchart() |>
     name = "Target",
     data = rep(0.70, 8),
     dashStyle = "Dash",
-    color = "#888888",
+    color = "#000000",
     lineWidth = 1
   ) |>
   hc_tooltip(
@@ -1564,7 +1623,10 @@ nonint_tt <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   hc_title(text = "Travel Time Reliability (Non-Interstate)") |>
   hc_subtitle(text = "Palm Beach County") |>
   
@@ -1592,7 +1654,7 @@ highchart() |>
     name = "Target",
     data = rep(0.50, 8),
     dashStyle = "Dash",
-    color = "#888888",
+    color = "#000000",
     lineWidth = 1
   ) |>
   hc_tooltip(
@@ -1628,7 +1690,10 @@ truck_tt <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   hc_title(text = "Truck Travel Time Reliability") |>
   hc_subtitle(text = "Palm Beach County") |>
   hc_xAxis(categories = truck_tt$Year) |>
@@ -1646,7 +1711,7 @@ highchart() |>
     name = "Target",
     data = rep(2.00, 8),
     dashStyle = "Dash",
-    color = "#888888",
+    color = "#000000",
     lineWidth = 1
   ) |>
   hc_plotOptions(
@@ -1678,7 +1743,10 @@ fixed_route_buses <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   hc_title(text = "Fixed Route Buses Exceeding Useful Life") |>
   hc_subtitle(text = "Palm Tran") |>
   hc_xAxis(categories = fixed_route_buses$Year) |>
@@ -1735,7 +1803,10 @@ cutaway_buses <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   
   hc_title(text = "Cutaway Buses Exceeding Useful Life") |>
   
@@ -1799,7 +1870,10 @@ support_automobiles <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   hc_title(text = "Support Automobiles Exceeding Useful Life") |>
   hc_subtitle(text = "Palm Tran") |>
   hc_xAxis(categories = support_automobiles$Year) |>
@@ -1855,7 +1929,10 @@ support_trucks <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   
   hc_title(text = "Support Trucks Exceeding Useful Life") |>
   
@@ -1903,7 +1980,7 @@ Source: Palm Tran Asset Management Inventory.
 :::
 # 5) Transit Assets: Tri-Rail
 :::{.text-left}
-**Transit vehicles keep Palm Beach moving.** The multi-county regional train service provider, Tri-Rail establishes goals so that most vehicles remain newer than their useful life, and most facilities remain in good condition. The goals below are for Tri-Rail. Palm Tran performance measure goals are shown on a separate page.
+The multi-county regional train service provider, **Tri-Rail** establishes goals so that most vehicles remain newer than their useful life, and most facilities remain in good condition. The goals below are for Tri-Rail. Palm Tran performance measure goals are shown on a separate page.
 :::
 ::: {.panel-tabset .nav-pills}
 ## Rolling Stock - Locomotives, Coach Cars, Self-propelled Cars
@@ -1918,7 +1995,10 @@ rolling_stock <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   
   hc_title(text = "Rolling Stock - Locomotives, Coach Cars, Self-propelled Cars") |>
   
@@ -1982,7 +2062,10 @@ track_restrictions <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   
   hc_title(text = "Railway Track with Performance Restrictions") |>
   
@@ -2046,7 +2129,10 @@ support_maintenance <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   
   hc_title(text = "Support & Maintenance Vehicles") |>
   
@@ -2110,7 +2196,10 @@ facilities <- data.frame(
 )
 
 highchart() |>
-  hc_chart(type = "line") |>
+  hc_chart(
+  type = "line",
+  backgroundColor = "white"
+) |>
   
   hc_title(text = "Passenger Terminals, Maintenance Facilities, Offices") |>
   
@@ -2165,7 +2254,7 @@ Source: Tri-Rail Transit Asset Management Plan.
 :::
 # 6) Transit Safety: Palm Tran
 :::{.text-left}
-**Palm Tran** is federally required to set targets for transit-related safety performance measures, including fatalities, injuries, safety events, and mechanical failures [(see FTA website for more details)](https://www.transit.dot.gov/PTASP). Palm Tran officially adopts targets and updates them annually through their [Public Transportation Agency Safety Plan (PTASP)](https://www.palmbeachtpa.org/static/sitefiles/Plans_and_Resources/Congestion_Management_Plan/PTASP_2021.pdf). Palm Tran coordinates with the Palm Beach MPO to formally adopt the targets and integrate them into the MPO's planning and programming process.
+**Palm Tran** is federally required to set targets for transit-related safety performance measures, including fatalities, injuries, safety events, and mechanical failures [(see FTA website for more details)](https://www.transit.dot.gov/PTASP). Palm Tran officially adopts targets and updates them annually through their [Public Transportation Agency Safety Plan (PTASP)](https://www.ecfr.gov/current/title-49/subtitle-B/chapter-VI/part-673). Palm Tran coordinates with the Palm Beach MPO to formally adopt the targets and integrate them into the MPO's planning and programming process.
 :::
 
 ## Palm Tran Safety Scorecard
