@@ -30,6 +30,7 @@ include-before-body:
 include-in-header:
   text: |
     <style>
+
       body {
         font-family: Tahoma, sans-serif;
         color: #646566;
@@ -105,6 +106,26 @@ include-in-header:
         font-weight: 600;
       }
 
+      /* NAV TAB STYLING */
+
+      .nav-tabs .nav-link {
+        color: #646566 !important;
+        font-weight: 400 !important;
+      }
+
+      .nav-tabs .nav-link:hover {
+        color: #646566 !important;
+      }
+
+      .nav-tabs .nav-link.active {
+        background-color: #646566 !important;
+        border-color: #646566 !important;
+        color: white !important;
+        font-weight: 400 !important;
+      }
+
+      /* PRINT BUTTON */
+
       .print-button {
         background-color: #62B5E5;
         color: white;
@@ -123,6 +144,7 @@ include-in-header:
 
     </style>
 ---
+
 ::: {.text-left}
 
 ![](images/Performance_measures_header_main.webp){width="100%"}
@@ -155,6 +177,40 @@ scorecard <- scorecard |>
       Goal_Met == "No" ~ "✕",
       Goal_Met == "New" ~ "New",
       TRUE ~ ""
+    ),
+
+    Format_Group = case_when(
+      Metric %in% c(
+        "SAFETY (5 -YR Avg.)",
+        "Fatalities",
+        "Fatal Crash Rate",
+        "Serious Injuries",
+        "Serious Injury Rate",
+        "Non-motorized Fatalities and Serious Injuries",
+        "TRANSIT SAFETY: PALM TRAN",
+        "Fixed Route Bus",
+        "Paratransit (Palm Tran Connection)",
+        "Fatality Rate (per 100k VRM)",
+        "Injuries",
+        "Injury Rate (per 100k VRM)",
+        "Safety Events",
+        "Safety Event Rate (per 100k VRM)",
+        "System Reliability (VRM/failures)"
+      ) ~ "number",
+
+      Metric == "Truck Travel Time Reliability on the Interstate" ~ "number",
+
+      Metric %in% c(
+        "INFRASTRUCTURE",
+        "Bridges",
+        "Pavement",
+        "SYSTEM PERFORAMANCE RELIABILITY",
+        "TRANSIT ASSET MANAGEMENT",
+        "Palm Tran",
+        "Tri-Rail"
+      ) ~ "header",
+
+      TRUE ~ "percent"
     )
   )
 
@@ -163,9 +219,24 @@ scorecard |>
     Metric,
     Goal_Met_Display,
     `Actual (2024)`,
-    `Target (2025)`
+    `Target (2025)`,
+    Format_Group
   ) |>
   gt() |>
+  fmt_number(
+    columns = `Actual (2024)`,
+    rows = Format_Group == "number",
+    decimals = 2,
+    drop_trailing_zeros = TRUE
+  ) |>
+  fmt_percent(
+    columns = `Actual (2024)`,
+    rows = Format_Group == "percent",
+    decimals = 0
+  ) |>
+  cols_hide(
+    columns = Format_Group
+  ) |>
   cols_label(
     Metric = "Metric",
     Goal_Met_Display = "Goal Met",
