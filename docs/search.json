@@ -7,48 +7,6 @@
     "text": "Palm Beach MPO\n  Performance Measures 2025"
   },
   {
-    "objectID": "Custom PM Dash.html#test-consolidated-scorecard",
-    "href": "Custom PM Dash.html#test-consolidated-scorecard",
-    "title": "Palm Beach Metropolitan Planning Organization Federal Performance Measures",
-    "section": "Test Consolidated Scorecard",
-    "text": "Test Consolidated Scorecard\n\n\n\n\n\n\n\n\nMetric\nGoal Met\nActual (2024)\nTarget (2025)\n\n\n\n\nSAFETY (5 -YR Avg.)\n\n\n\n\n\n\n\nFatalities\n✕\n207.4\n0\n\n\nFatal Crash Rate\n✕\n1.45\n0\n\n\nSerious Injuries\n✕\n812.2\n0\n\n\nSerious Injury Rate\n✕\n5.73\n0\n\n\nNon-motorized Fatalities and Serious Injuries\n✕\n203.8\n0\n\n\nINFRASTRUCTURE\n\n\n\n\n\n\n\nBridges\n\n\n\n\n\n\n\nBridges in Good Condition\n✓\n83%\n≥ 50%\n\n\nBridges in Poor Condition\n✓\n0%\n&lt; 5%\n\n\nPavement\n\n\n\n\n\n\n\nInterstate Pavements in Good Condition\n✕\n55%\n≥ 60%\n\n\nInterstate Pavements in Poor Condition\n✓\n0%\n&lt; 5%\n\n\nNon-Interstate NHS Pavements in Good Condition\n✓\n56%\n≥ 40%\n\n\nNon-Interstate NHS Pavements in Poor Condition\n✓\n0%\n&lt; 5%\n\n\nSYSTEM PERFORAMANCE RELIABILITY\n\n\n\n\n\n\n\n% of reliable person-miles traveled on the Interstate\n✕\n62%\n≥ 75%\n\n\n% of reliable person-miles traveled on the Non-Interstate NHS\n✓\n87%\n≥ 60%\n\n\nTruck Travel Time Reliability on the Interstate\n✕\n2.09\n≤ 2.00\n\n\nTRANSIT ASSET MANAGEMENT\n\n\n\n\n\n\n\nPalm Tran\n\n\n\n\n\n\n\nPalm Tran Articulated Buses Exceeding Useful Life\n✓\n0%\n≤ 10%\n\n\nPalm Tran Fixed Route Buses Exceeding Useful Life\n✓\n0%\n≤ 10%\n\n\nPalm Tran Cutaway Bus Exceeding Useful Life\n✓\n0%\n≤ 10%\n\n\nPalm Tran Support Vehicles Exceeding Useful Life\n✕\n43%\n≤ 10%\n\n\nPalm Tran Support Trucks Exceeding Useful Life\n✓\n0%\n≤ 10%\n\n\nPalm Tran Facilities Exceeding Useful Life\n✓\n0%\n0\n\n\nTri-Rail\n\n\n\n\n\n\n\nTri-Rail Rolling Stock Exceeding Useful Life\n✕\n32%\n≤ 30%\n\n\nTri-Rail Maintenance & Support Vehicles &gt; 8 years old\n✓\n41%\n≤ 41%\n\n\nTri-Rail Terminals, Facilities, and Offices Less than 2.5 on 5 point scale\n✓\n0%\n≤ 5%\n\n\nTri-Rail Rail track restrictions (slow orders)\n✓\n0%\n≤ 3%\n\n\nTRANSIT SAFETY: PALM TRAN\n\n\n\n\n\n\n\nFixed Route Bus\n\n\n\n\n\n\n\nFatalities\nNew\n1\n0\n\n\nFatality Rate (per 100k VRM)\nNew\n0.01\n0\n\n\nInjuries\nNew\n18\n63\n\n\nInjury Rate (per 100k VRM)\nNew\n0.2\n0.2\n\n\nSafety Events\nNew\n49\n20\n\n\nSafety Event Rate (per 100k VRM)\nNew\n0.7\n0.4\n\n\nSystem Reliability (VRM/failures)\nNew\n6,609\n8000\n\n\nParatransit (Palm Tran Connection)\n\n\n\n\n\n\n\nFatalities\nNew\n0\n0\n\n\nFatality Rate (per 100k VRM)\nNew\n0\n0\n\n\nInjuries\nNew\n20\n22\n\n\nInjury Rate (per 100k VRM)\nNew\n0.2\n0.3\n\n\nSafety Events\nNew\n14\n24\n\n\nSafety Event Rate (per 100k VRM)\nNew\n0.1\n0.3\n\n\nSystem Reliability (VRM/failures)\nNew\n10,569\n7700"
-  },
-  {
-    "objectID": "Custom PM Dash.html#safety",
-    "href": "Custom PM Dash.html#safety",
-    "title": "Palm Beach Metropolitan Planning Organization Federal Performance Measures",
-    "section": "Safety",
-    "text": "Safety\n\n\nSafety Performance measures track the number of facilities and serious injuries, as well as non-motorized fatalities and serious injuries over a 5-year moving period.\n\n\n\n\n\n\n\n\n\nMetric\nGoal Met\n5-YR Avg. 2024\nTarget\n\n\n\n\nFatalities\n✕\n207.40\n0\n\n\nFatal Crash Rate\n✕\n1.45\n0\n\n\nSerious Injuries\n✕\n812.20\n0\n\n\nSerious Injury Rate\n✕\n5.73\n0\n\n\nNon-motorized Fatalities and Serious Injuries\n✕\n203.80\n0"
-  },
-  {
-    "objectID": "Custom PM Dash.html#infrastructure-conditions",
-    "href": "Custom PM Dash.html#infrastructure-conditions",
-    "title": "Palm Beach Metropolitan Planning Organization Federal Performance Measures",
-    "section": "Infrastructure Conditions",
-    "text": "Infrastructure Conditions\n\n\nInfrastructure Conditions Performance measures track the conditions of bridges and pavement on the National Highway System (NHS) both for Interstate and Non-Interstate routes.\n\n\n\n\n\n\n\n\n\nMetric\nGoal Met\nActual (2024)\nTarget (2025)\n\n\n\n\nBridges\n\n\n\n\n\n\n\n\nBridges in Good Condition\n✓\n83%\n≥ 50%\n\n\nBridges in Poor Condition\n✓\n0%\n&lt; 5%\n\n\nPavement\n\n\n\n\n\n\n\n\nInterstate Pavements in Good Condition\n✕\n55%\n≥ 60%\n\n\nInterstate Pavements in Poor Condition\n✓\n0%\n&lt; 5%\n\n\nNon-Interstate NHS Pavements in Good Condition\n✓\n56%\n≥ 40%\n\n\nNon-Interstate NHS Pavements in Poor Condition\n✓\n0%\n&lt; 5%"
-  },
-  {
-    "objectID": "Custom PM Dash.html#system-performance-reliability",
-    "href": "Custom PM Dash.html#system-performance-reliability",
-    "title": "Palm Beach Metropolitan Planning Organization Federal Performance Measures",
-    "section": "System Performance Reliability",
-    "text": "System Performance Reliability\n\n\nSystem Performance Reliability measures the consistency of traffic flow.\n\n\n\n\n\n\n\n\n\nMetric\nGoal Met\nActual (2024)\nTarget (2025)\n\n\n\n\n% of reliable person-miles traveled on the Interstate\n✕\n62.3%\n≥ 75%\n\n\n% of reliable person-miles traveled on the Non-Interstate NHS\n✓\n86.8%\n≥ 60%\n\n\nTruck Travel Time Reliability on the Interstate\n✕\n2.09\n≤ 2.00"
-  },
-  {
-    "objectID": "Custom PM Dash.html#transit-asset-management",
-    "href": "Custom PM Dash.html#transit-asset-management",
-    "title": "Palm Beach Metropolitan Planning Organization Federal Performance Measures",
-    "section": "Transit Asset Management",
-    "text": "Transit Asset Management\n\n\nTransit agencies are responsible for maintaining vehicles, buildings, track, and other assets to ensure quality and reliable service. These metrics track the condition and age of such assets.\n\n\n\n\n\n\n\n\n\nMetric\nGoal Met\nActual (2023)\nTarget (2024)\n\n\n\n\nPalm Tran\n\n\n\n\n\n\n\n\nPalm Tran Articulated Buses Exceeding Useful Life\n✓\n0.00%\n≤ 10%\n\n\nPalm Tran Fixed Route Buses Exceeding Useful Life\n✓\n0.00%\n≤ 10%\n\n\nPalm Tran Cutaway Bus Exceeding Useful Life\n✓\n0.00%\n≤ 10%\n\n\nPalm Tran Support Vehicles Exceeding Useful Life\n✕\n43.40%\n≤ 10%\n\n\nPalm Tran Support Trucks Exceeding Useful Life\n✓\n0.05%\n≤ 10%\n\n\nPalm Tran Facilities Exceeding Useful Life\n✓\n0.00%\n0\n\n\nTri-Rail\n\n\n\n\n\n\n\n\nTri-Rail Rolling Stock Exceeding Useful Life\n✕\n32.00%\n≤ 30%\n\n\nTri-Rail Maintenance & Support Vehicles &gt; 8 years old\n✓\n41.00%\n≤ 41%\n\n\nTri-Rail Terminals, Facilities, and Offices Less than 2.5 on 5 point scale\n✓\n0.00%\n≤ 5%\n\n\nTri-Rail Rail track restrictions (slow orders)\n✓\n0.16%\n≤ 3%"
-  },
-  {
-    "objectID": "Custom PM Dash.html#transit-safety-palm-tran",
-    "href": "Custom PM Dash.html#transit-safety-palm-tran",
-    "title": "Palm Beach Metropolitan Planning Organization Federal Performance Measures",
-    "section": "Transit Safety: Palm Tran",
-    "text": "Transit Safety: Palm Tran\n\n\nTransit providers must annually establish transit safety performance targets. MPOs also must establish transit safety targets and incorporate transit safety in the metropolitan transportation planning process.\n\n\n\n\n\n\n\n\n\nMetric\nGoal Met\nActual (2024)\nTarget (2025)\n\n\n\n\nFixed Route Bus\n\n\n\n\n\n\n\n\nFatalities\nNew\n1\n0\n\n\nFatality Rate (per 100k VRM)\nNew\n0\n0\n\n\nInjuries\nNew\n18\n63\n\n\nInjury Rate (per 100k VRM)\nNew\n0.2\n0.2\n\n\nSafety Events\nNew\n49\n20\n\n\nSafety Event Rate (per 100k VRM)\nNew\n0.7\n0.4\n\n\nSystem Reliability (VRM/failures)\nNew\n6,609\n8,000\n\n\nParatransit (Palm Tran Connection)\n\n\n\n\n\n\n\n\nFatalities\nNew\n0\n0\n\n\nFatality Rate (per 100k VRM)\nNew\n0\n0\n\n\nInjuries\nNew\n20\n22\n\n\nInjury Rate (per 100k VRM)\nNew\n0.2\n0.3\n\n\nSafety Events\nNew\n14\n24\n\n\nSafety Event Rate (per 100k VRM)\nNew\n0.1\n0.3\n\n\nSystem Reliability (VRM/failures)\nNew\n10,569\n7,700\n\n\n\n\n\n\n\n\nSource: Palm Tran Public Transportation Agency Safety Plan"
-  },
-  {
     "objectID": "Custom PM Dash.html#bridge-conditions",
     "href": "Custom PM Dash.html#bridge-conditions",
     "title": "Palm Beach Metropolitan Planning Organization Federal Performance Measures",
@@ -95,6 +53,6 @@
     "href": "Custom PM Dash.html#palm-tran-safety-scorecard",
     "title": "Palm Beach Metropolitan Planning Organization Federal Performance Measures",
     "section": "Palm Tran Safety Scorecard",
-    "text": "Palm Tran Safety Scorecard\n\n\n\n\n\n\n\n\nMetric\nActual 2025\nTarget 2026\n\n\n\n\nFixed Route Bus\n\n\n\n\n\n\nFatalities\n0\n0\n\n\nFatality Rate (per 100k VRM)\n0.01\n0\n\n\nInjuries\n44\n21\n\n\nInjury Rate (per 100k VRM)\n0.1\n0.1\n\n\nSafety Events\n49\n38\n\n\nSafety Event Rate (per 100k VRM)\n0.6\n0.5\n\n\nSystem Reliability (VRM/failures)\n7,929\n14,000\n\n\nParatransit (Palm Tran Connection)\n\n\n\n\n\n\nFatalities\n0\n0\n\n\nFatality Rate (per 100k VRM)\n0\n0\n\n\nInjuries\n17\n19\n\n\nInjury Rate (per 100k VRM)\n0.2\n0.2\n\n\nSafety Events\n17\n20\n\n\nSafety Event Rate (per 100k VRM)\n0.2\n0.2\n\n\nSystem Reliability (VRM/failures)\n15,101\n7,700\n\n\n\n\n\n\n\n\nSource: Palm Tran Public Transportation Agency Safety Plan."
+    "text": "Palm Tran Safety Scorecard\n\n\n\n\n\n\n\n\nMetric\nActual\nTarget\n\n\n\n\nFixed Route Bus\n\n\n\n\n\n\nFatalities\n0\n0\n\n\nFatality Rate (per 100k VRM)\n0.01\n0\n\n\nInjuries\n44\n21\n\n\nInjury Rate (per 100k VRM)\n0.1\n0.1\n\n\nSafety Events\n49\n38\n\n\nSafety Event Rate (per 100k VRM)\n0.6\n0.5\n\n\nSystem Reliability (VRM/failures)\n7,929\n14,000\n\n\nParatransit (Palm Tran Connection)\n\n\n\n\n\n\nFatalities\n0\n0\n\n\nFatality Rate (per 100k VRM)\n0\n0\n\n\nInjuries\n17\n19\n\n\nInjury Rate (per 100k VRM)\n0.2\n0.2\n\n\nSafety Events\n17\n20\n\n\nSafety Event Rate (per 100k VRM)\n0.2\n0.2\n\n\nSystem Reliability (VRM/failures)\n15,101\n7,700\n\n\n\n\n\n\n\n\nSource: Palm Tran Public Transportation Agency Safety Plan."
   }
 ]

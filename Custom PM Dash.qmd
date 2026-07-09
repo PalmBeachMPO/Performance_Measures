@@ -158,8 +158,6 @@ This interactive dashboard provides a way to view the most up-to-date informatio
 :::
 # Palm Beach MPO Federal Performance Measures Scorecard
 
-## Test Consolidated Scorecard
-
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(readxl)
 library(dplyr)
@@ -286,27 +284,27 @@ scorecard |>
     columns = c(Goal_Met_Display, `Actual (2024)`, `Target (2025)`)
   ) |>
   cols_width(
-    Metric ~ px(430),
-    Goal_Met_Display ~ px(100),
-    `Actual (2024)` ~ px(140),
-    `Target (2025)` ~ px(140)
+    Metric ~ px(360),
+    Goal_Met_Display ~ px(80),
+    `Actual (2024)` ~ px(100),
+    `Target (2025)` ~ px(100)
   ) |>
   tab_style(
-    style = cell_text(color = "#F8485E", weight = "bold", size = px(30)),
+    style = cell_text(color = "#F8485E", weight = "bold", size = px(23)),
     locations = cells_body(
       columns = Goal_Met_Display,
       rows = Goal_Met_Display == "✕"
     )
   ) |>
   tab_style(
-    style = cell_text(color = "#26D07C", weight = "bold", size = px(30)),
+    style = cell_text(color = "#26D07C", weight = "bold", size = px(23)),
     locations = cells_body(
       columns = Goal_Met_Display,
       rows = Goal_Met_Display == "✓"
     )
   ) |>
   tab_style(
-    style = cell_text(color = "#646566", weight = "bold", size = px(16)),
+    style = cell_text(color = "#646566", weight = "bold", size = px(17)),
     locations = cells_body(
       columns = Goal_Met_Display,
       rows = Goal_Met_Display == "New"
@@ -316,343 +314,7 @@ scorecard |>
   tab_options(
     table.width = pct(100),
     table.font.size = px(16),
-    data_row.padding = px(4),
-    column_labels.border.bottom.color = "#D9E2EC",
-    table.border.top.color = "white",
-    table.border.bottom.color = "white",
-    row.striping.background_color = "#F7F9FC",
-    heading.background.color = "white",
-    table_body.hlines.color = "#E6ECF2",
-    table_body.vlines.color = "white"
-  )
-```
-## Safety
-:::{.text-left}
-![](images/PM_Safety.png){width="%"} 
-
-**Safety** Performance measures track the 
-number of facilities and serious injuries, 
-as well as non-motorized fatalities 
-and serious injuries over a 5-year moving period.
-:::
-
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
-library(readxl)
-library(dplyr)
-library(gt)
-
-scorecard <- read_excel(
-  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/Performance_Measures_R.xlsx",
-  sheet = "Scorecard_Safety"
-)
-
-scorecard |>
-  mutate(
-    Goal_Met = ifelse(Goal_Met == "Yes", "✓", "✕")
-  ) |>
-  gt() |>
-  cols_label(
-    Metric = "Metric",
-    Goal_Met = "Goal Met",
-    Five_Year_Avg = "5-YR Avg. 2024",
-    Target = "Target"
-  ) |>
-  tab_style(
-    style = list(
-      cell_fill(color = "#62B5E5"),
-      cell_text(color = "white", weight = "bold", size = px(18))
-    ),
-    locations = cells_column_labels(everything())
-  ) |>
-  tab_style(
-    style = cell_text(weight = "bold", size = px(18), color = "#646566"),
-    locations = cells_body(columns = Metric)
-  ) |>
-  cols_align(
-    align = "center",
-    columns = c(Goal_Met, Five_Year_Avg, Target)
-  ) |>
-  tab_style(
-    style = cell_text(color = "red", weight = "bold", size = px(30)),
-    locations = cells_body(
-      columns = Goal_Met,
-      rows = Goal_Met == "✕"
-    )
-  ) |>
-  cols_width(
-  Metric ~ px(350),
-  Goal_Met ~ px(100),
-  Five_Year_Avg ~ px(120),
-  Target ~ px(100)
-) |>
-  opt_row_striping() |>
-  tab_options(
-    table.width = pct(100),
-    table.font.size = px(16),
-    data_row.padding = px(4),
-    column_labels.border.bottom.color = "#D9E2EC",
-    table.border.top.color = "white",
-    table.border.bottom.color = "white",
-    row.striping.background_color = "#F7F9FC",
-    heading.background.color = "white",
-    table_body.hlines.color = "#E6ECF2",
-    table_body.vlines.color = "white"
-  )
-```
-## Infrastructure Conditions
-:::{.text-left}
-![](images/PM_Infra.png){width="%"} 
-
-**Infrastructure Conditions** Performance measures track the conditions of bridges and pavement on the National Highway System (NHS) both for Interstate and Non-Interstate routes.
-:::
-
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
-library(readxl)
-library(dplyr)
-library(gt)
-
-scorecard <- read_excel(
-  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/Performance_Measures_R.xlsx",
-  sheet = "Scorecard_Infrastructure"
-)
-
-scorecard |>
-  mutate(
-    Goal_Met = ifelse(Goal_Met == "Yes", "✓", "✕")
-  ) |>
-  gt() |>
-  fmt_percent(
-    columns = c(`Actual (2024)`, `Target (2025)`),
-    decimals = 0
-  ) |>
-  cols_label(
-    Metric = "Metric",
-    Goal_Met = "Goal Met",
-    `Actual (2024)` = "Actual (2024)",
-    `Target (2025)` = "Target (2025)"
-  ) |>
-  sub_missing(
-    columns = everything(),
-    missing_text = ""
-  ) |>
-  tab_style(
-    style = list(
-      cell_fill(color = "#62B5E5"),
-      cell_text(color = "white", weight = "bold", size = px(18))
-    ),
-    locations = cells_column_labels(everything())
-  ) |>
-  tab_style(
-  style = cell_text(weight = "bold", size = px(18), color = "#646566"),
-  locations = cells_body(
-    columns = Metric,
-    rows = Metric %in% c("Bridges", "Pavement")
-  )
-) |>
-  cols_align(
-    align = "center",
-    columns = c(Goal_Met, `Actual (2024)`, `Target (2025)`)
-  ) |>
-  tab_style(
-    style = cell_text(color = "#F8485E", weight = "bold", size = px(30)),
-    locations = cells_body(
-      columns = Goal_Met,
-      rows = Goal_Met == "✕"
-    )
-  ) |>
-  tab_style(
-    style = cell_text(color = "#26D07C", weight = "bold", size = px(30)),
-    locations = cells_body(
-      columns = Goal_Met,
-      rows = Goal_Met == "✓"
-    )
-  ) |>
-  cols_width(
-  Metric ~ px(350),
-  Goal_Met ~ px(100),
-  `Actual (2024)` ~ px(120),
-  `Target (2025)` ~ px(120)
-) |>
-  opt_row_striping() |>
-  tab_options(
-    table.width = pct(100),
-    table.font.size = px(16),
-    data_row.padding = px(4),
-    column_labels.border.bottom.color = "#D9E2EC",
-    table.border.top.color = "white",
-    table.border.bottom.color = "white",
-    row.striping.background_color = "#F7F9FC",
-    heading.background.color = "white",
-    table_body.hlines.color = "#E6ECF2",
-    table_body.vlines.color = "white"
-  )
-```
-## System Performance Reliability
-:::{.text-left}
-![](images/PM_Performance.png){width="%"} 
-
-**System Performance Reliability** measures the consistency of traffic flow.
-:::
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
-library(readxl)
-library(dplyr)
-library(gt)
-
-scorecard <- read_excel(
-  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/Performance_Measures_R.xlsx",
-  sheet = "Scorecard_Sys_Per_Reli"
-)
-
-scorecard |>
-  mutate(
-    Goal_Met = ifelse(Goal_Met == "Yes", "✓", "✕")
-  ) |>
-  gt() |>
-tab_style(
-  style = cell_text(),
-  locations = cells_body(
-    columns = `Actual (2024)`,
-    rows = 1:2
-  )
-) |>
-fmt(
-  columns = `Actual (2024)`,
-  rows = 1:2,
-  fns = function(x) paste0(round(x * 100, 1), "%")
-) |>
-  cols_label(
-    Metric = "Metric",
-    Goal_Met = "Goal Met",
-    `Actual (2024)` = "Actual (2024)",
-    `Target (2025)` = "Target (2025)"
-  ) |>
-  tab_style(
-    style = list(
-      cell_fill(color = "#62B5E5"),
-      cell_text(color = "white", weight = "bold", size = px(18))
-    ),
-    locations = cells_column_labels(everything())
-  ) |>
-  tab_style(
-    style = cell_text(weight = "bold", size = px(18), color = "#646566"),
-    locations = cells_body(columns = Metric)
-  ) |>
-  cols_align(
-    align = "center",
-    columns = c(Goal_Met, `Actual (2024)`, `Target (2025)`)
-  ) |>
-  tab_style(
-    style = cell_text(color = "#F8485E", weight = "bold", size = px(30)),
-    locations = cells_body(
-      columns = Goal_Met,
-      rows = Goal_Met == "✕"
-    )
-  ) |>
-  tab_style(
-    style = cell_text(color = "#26D07C", weight = "bold", size = px(30)),
-    locations = cells_body(
-      columns = Goal_Met,
-      rows = Goal_Met == "✓"
-    )
-  ) |>
-  opt_row_striping() |>
-  tab_options(
-    table.width = pct(100),
-    table.font.size = px(16),
-    data_row.padding = px(4),
-    column_labels.border.bottom.color = "#D9E2EC",
-    table.border.top.color = "white",
-    table.border.bottom.color = "white",
-    row.striping.background_color = "#F7F9FC",
-    heading.background.color = "white",
-    table_body.hlines.color = "#E6ECF2",
-    table_body.vlines.color = "white"
-  )
-```
-## Transit Asset Management
-:::{.text-left}
-![](images/PM_TransitAssets.png){width="%"} 
-
-**Transit agencies** are responsible for maintaining vehicles, buildings, track, and other assets to ensure quality and reliable service. These metrics track the condition and age of such assets.
-:::
-
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
-library(readxl)
-library(dplyr)
-library(gt)
-
-scorecard <- read_excel(
-  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/Performance_Measures_R.xlsx",
-  sheet = "Scorecard_Transit_As_Man"
-)
-
-if ("Goal Met" %in% names(scorecard)) {
-  scorecard <- scorecard |>
-    rename(Goal_Met = `Goal Met`)
-}
-
-scorecard |>
-  mutate(
-    Goal_Met = ifelse(Goal_Met == "Yes", "✓", "✕")
-  ) |>
-  gt() |>
-  fmt_percent(
-    columns = `Actual (2023)`,
-    decimals = 2
-  ) |>
-  cols_label(
-    Metric = "Metric",
-    Goal_Met = "Goal Met",
-    `Actual (2023)` = "Actual (2023)",
-    `Target (2024)` = "Target (2024)"
-  ) |>
-  sub_missing(
-    columns = everything(),
-    missing_text = ""
-  ) |>
-  tab_style(
-    style = list(
-      cell_fill(color = "#62B5E5"),
-      cell_text(color = "white", weight = "bold", size = px(18))
-    ),
-    locations = cells_column_labels(everything())
-  ) |>
-  tab_style(
-    style = cell_text(weight = "bold", size = px(20), color = "#646566"),
-    locations = cells_body(
-      columns = Metric,
-      rows = Metric %in% c("Palm Tran", "Tri-Rail")
-    )
-  ) |>
-  cols_align(
-    align = "center",
-    columns = c(Goal_Met, `Actual (2023)`, `Target (2024)`)
-  ) |>
-  cols_width(
-    Metric ~ px(360),
-    Goal_Met ~ px(100),
-    `Actual (2023)` ~ px(130),
-    `Target (2024)` ~ px(130)
-  ) |>
-  tab_style(
-    style = cell_text(color = "#F8485E", weight = "bold", size = px(30)),
-    locations = cells_body(
-      columns = Goal_Met,
-      rows = Goal_Met == "✕"
-    )
-  ) |>
-  tab_style(
-    style = cell_text(color = "#26D07C", weight = "bold", size = px(30)),
-    locations = cells_body(
-      columns = Goal_Met,
-      rows = Goal_Met == "✓"
-    )
-  ) |>
-  opt_row_striping() |>
-  tab_options(
-    table.width = pct(100),
-    table.font.size = px(16),
-    data_row.padding = px(4),
+    data_row.padding = px(2),
     column_labels.border.bottom.color = "#D9E2EC",
     table.border.top.color = "white",
     table.border.bottom.color = "white",
@@ -663,81 +325,6 @@ scorecard |>
   )
 ```
 
-## Transit Safety: Palm Tran
-:::{.text-left}
-![](images/PM_TransitSafe.png){width="%"} 
-
-Transit providers must annually establish **transit safety** performance targets. MPOs also must establish transit safety targets and incorporate transit safety in the metropolitan transportation planning process.
-:::
-
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
-library(readxl)
-library(dplyr)
-library(gt)
-
-scorecard <- read_excel(
-  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/Performance_Measures_R.xlsx",
-  sheet = "Scorecard_Transit_Safety"
-)
-
-scorecard |>
-  gt() |>
-  fmt_number(
-    columns = c(`Actual (2024)`, `Target (2025)`),
-    decimals = 1,
-    drop_trailing_zeros = TRUE
-  ) |>
-  cols_label(
-    Metric = "Metric",
-    `Goal Met` = "Goal Met",
-    `Actual (2024)` = "Actual (2024)",
-    `Target (2025)` = "Target (2025)"
-  ) |>
-  sub_missing(
-    columns = everything(),
-    missing_text = ""
-  ) |>
-  tab_style(
-    style = list(
-      cell_fill(color = "#62B5E5"),
-      cell_text(color = "white", weight = "bold", size = px(18))
-    ),
-    locations = cells_column_labels(everything())
-  ) |>
-  tab_style(
-    style = cell_text(weight = "bold", size = px(20), color = "#646566"),
-    locations = cells_body(
-      columns = Metric,
-      rows = Metric %in% c("Fixed Route Bus", "Paratransit (Palm Tran Connection)")
-    )
-  ) |>
-  cols_align(
-    align = "center",
-    columns = c(`Goal Met`, `Actual (2024)`, `Target (2025)`)
-  ) |>
-  cols_width(
-    Metric ~ px(360),
-    `Goal Met` ~ px(100),
-    `Actual (2024)` ~ px(130),
-    `Target (2025)` ~ px(130)
-  ) |>
-  opt_row_striping() |>
-  tab_options(
-    table.width = pct(100),
-    table.font.size = px(16),
-    data_row.padding = px(4),
-    column_labels.border.bottom.color = "#D9E2EC",
-    table.border.top.color = "white",
-    table.border.bottom.color = "white",
-    row.striping.background_color = "#F7F9FC",
-    heading.background.color = "white",
-    table_body.hlines.color = "#E6ECF2",
-    table_body.vlines.color = "white"
-  )
-```
-:::{.text-left}
-Source: Palm Tran Public Transportation Agency Safety Plan
-:::
 # 1) Safety
 :::{.text-left}
 The Palm Beach MPO and the State of Florida have set a goal for **zero** fatalities and serious injuries on the roadway network. Florida and Metropolitan Planning Organizations (MPOs), are federally required to track and set targets for **total fatalities, fatality rate, serious injuries, serious injury rate**, and the total number of **non-motorized (pedestrian & bicyclists) fatalities and serious injuries**. For more information, [see FDOT's guidance document](https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/planning/fto/pdis-documents/performance-measures-methodology-and-data-report.pdf?sfvrsn=72082866_1).
@@ -2325,7 +1912,7 @@ Source: Tri-Rail Transit Asset Management Plan.
 :::
 # 6) Transit Safety: Palm Tran
 :::{.text-left}
-**Palm Tran** is federally required to set targets for transit-related safety performance measures, including fatalities, injuries, safety events, and mechanical failures [(see FTA website for more details)](https://www.transit.dot.gov/PTASP). Palm Tran officially adopts targets and updates them annually through their [Public Transportation Agency Safety Plan (PTASP)](https://www.ecfr.gov/current/title-49/subtitle-B/chapter-VI/part-673). Palm Tran coordinates with the Palm Beach MPO to formally adopt the targets and integrate them into the MPO's planning and programming process.
+**Palm Tran** is federally required to set targets for transit-related safety performance measures, including fatalities, injuries, safety events, and mechanical failures [(see FTA website for more details)](https://www.transit.dot.gov/PTASP). Palm Tran officially adopts targets and updates them annually through their [Public Transportation Agency Safety Plan (PTASP)](https://www.ecfr.gov/current/title-49/subtitle-B/chapter-VI/part-673). Palm Tran coordinates with the Palm Beach MPO to formally adopt the targets and integrate them into the MPO's planning and programming process.Find more Palm Tran performance highlights [here](https://www.palmtran.org/wp-content/uploads/2026/05/March-2026-Monthly-Performance-Report.pdf).
 :::
 
 ## Palm Tran Safety Scorecard
@@ -2349,8 +1936,8 @@ scorecard |>
   ) |>
   cols_label(
     Metric = "Metric",
-    `Actual 2025` = "Actual 2025",
-    `Target 2026` = "Target 2026"
+    `Actual 2025` = "Actual",
+    `Target 2026` = "Target"
   ) |>
   sub_missing(
     columns = everything(),
