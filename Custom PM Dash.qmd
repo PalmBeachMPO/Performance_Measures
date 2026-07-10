@@ -304,7 +304,7 @@ scorecard |>
     )
   ) |>
   tab_style(
-    style = cell_text(color = "#646566", weight = "bold", size = px(17)),
+    style = cell_text(color = "#646566", weight = "bold", size = px(16)),
     locations = cells_body(
       columns = Goal_Met_Display,
       rows = Goal_Met_Display == "New"
