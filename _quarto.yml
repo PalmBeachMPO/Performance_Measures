@@ -1,13 +1,21 @@
 project:
   type: website
   output-dir: docs
-  
+
 resources:
   - images/logo.png
   - images/Performance_measures_header_main.webp
-  - images/PM_Safety.png
+  - images/PM Safety.png
+
 website:
   title: "Palm Beach MPO Dashboard"
+
+  page-footer:
+    center: |
+      Visit our <a href="https://palmbeachmpo.org/" target="_blank" rel="noopener noreferrer">Palm Beach MPO website</a> for more transportation information and news!
+    background: "#147BD1"
+    foreground: "white"
+    border: false
 
 format:
   html:

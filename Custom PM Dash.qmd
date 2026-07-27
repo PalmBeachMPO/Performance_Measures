@@ -1,5 +1,5 @@
 ---
-title: "Palm Beach Metropolitan Planning Organization Federal Performance Measures"
+title: ""
 
 format:
   html:
@@ -23,7 +23,7 @@ include-before-body:
     <div class="dashboard-header">
       <img src="images/logo.png" class="header-logo" alt="Palm Beach MPO logo">
       <span class="header-main">Palm Beach MPO</span>
-      <span class="header-sub">Performance Measures 2025</span>
+      <span class="header-sub">Performance Measures Dashboard</span>
       <div id="quarto-search"></div>
     </div>
 
@@ -42,9 +42,9 @@ include-in-header:
         left: 0;
         width: 100%;
         height: 76px;
-        background-color: #62B5E5;
+        background-color: #147BD1;
         color: white;
-        z-index: 9999;
+        z-index: 10000;
         display: flex;
         align-items: center;
         gap: 20px;
@@ -79,8 +79,23 @@ include-in-header:
         padding-top: 105px;
       }
 
+      /* KEEP TOC FIXED BELOW HEADER */
+
       #quarto-margin-sidebar {
-        padding-top: 90px;
+        padding-top: 0;
+      }
+
+      #TOC {
+        position: fixed !important;
+        top: 95px !important;
+        right: 28px;
+        width: 360px;
+        max-height: calc(100vh - 115px);
+        overflow-y: auto;
+        background-color: white;
+        padding: 0 10px 15px 10px;
+        box-sizing: border-box;
+        z-index: 100;
       }
 
       #TOC > .toc-title {
@@ -127,7 +142,7 @@ include-in-header:
       /* PRINT BUTTON */
 
       .print-button {
-        background-color: #62B5E5;
+        background-color: #147BD1;
         color: white;
         border: none;
         padding: 10px 18px;
@@ -142,6 +157,50 @@ include-in-header:
         background-color: #147BD1;
       }
 
+      /* FULL-WIDTH QUARTO FOOTER */
+
+      .nav-footer {
+        min-height: 76px;
+        background-color: #147BD1 !important;
+        color: white !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 34px !important;
+        box-sizing: border-box;
+        font-family: Tahoma, sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        border-top: none !important;
+      }
+
+      .nav-footer-center {
+        text-align: center;
+        width: 100%;
+      }
+
+      .nav-footer a {
+        color: white !important;
+        font-weight: 700;
+        text-decoration: underline;
+      }
+
+      .nav-footer a:hover {
+        color: #D9EAF8 !important;
+      }
+
+      /* RETURN TO NORMAL QUARTO TOC ON SMALL SCREENS */
+
+      @media (max-width: 1100px) {
+        #TOC {
+          position: static !important;
+          width: auto;
+          max-height: none;
+          overflow-y: visible;
+          padding: 0;
+        }
+      }
+
     </style>
 ---
 
@@ -152,11 +211,14 @@ include-in-header:
   Print / Save as PDF
 </button>
 
+The [Palm Beach Metropolitan Planning Organization (MPO)](https://palmbeachmpo.org/) is the federally designated transportation planning agency for Palm Beach County responsible for developing long-range transportation plans, programming federal transportation funding, and monitoring system performance.
+
 The following goals, objectives, performance measures and targets are associated with the MPO’s Vision of a safe, efficient, and connected multimodal transportation system. The performance measures and targets are adopted into the MPO's 2050 Long Range Transportation Plan (LRTP) and integrated into the the MPO's 5-Year Transportation Improvement Program (TIP). 
 
 This interactive dashboard provides a way to view the most up-to-date information for all performance measures adopted by the MPO. Formal review, public involvement, and the update of targets occurs annually in February.
 :::
-# Palm Beach MPO Federal Performance Measures Scorecard
+
+# Performance Measures Scorecard
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(readxl)
@@ -202,7 +264,7 @@ scorecard <- scorecard |>
         "INFRASTRUCTURE",
         "Bridges",
         "Pavement",
-        "SYSTEM PERFORAMANCE RELIABILITY",
+        "SYSTEM PERFORMANCE RELIABILITY",
         "TRANSIT ASSET MANAGEMENT",
         "Palm Tran",
         "Tri-Rail"
@@ -217,7 +279,7 @@ scorecard |>
     Metric,
     Goal_Met_Display,
     `Actual (2024)`,
-    `Target (2025)`,
+    Target,
     Format_Group
   ) |>
   gt() |>
@@ -239,78 +301,222 @@ scorecard |>
     Metric = "Metric",
     Goal_Met_Display = "Goal Met",
     `Actual (2024)` = "Actual (2024)",
-    `Target (2025)` = "Target (2025)"
+    Target = "Target"
   ) |>
   sub_missing(
     columns = everything(),
     missing_text = ""
   ) |>
+
+  # Header-row styling
   tab_style(
     style = list(
-      cell_fill(color = "#62B5E5"),
-      cell_text(color = "white", weight = "bold", size = px(18))
+      cell_fill(color = "#147BD1"),
+      cell_text(
+        color = "white",
+        weight = "bold",
+        size = px(18)
+      )
     ),
     locations = cells_column_labels(everything())
   ) |>
+
+  # Major scorecard section headings
   tab_style(
-    style = cell_text(weight = "bold", size = px(20), color = "#646566"),
+    style = cell_text(
+      weight = "bold",
+      size = px(20),
+      color = "#646566"
+    ),
     locations = cells_body(
       columns = Metric,
       rows = Metric %in% c(
         "SAFETY (5 -YR Avg.)",
         "INFRASTRUCTURE",
-        "SYSTEM PERFORAMANCE RELIABILITY",
+        "SYSTEM PERFORMANCE RELIABILITY",
         "TRANSIT ASSET MANAGEMENT",
+        "TRANSIT ASSETS: PALM TRAN",
+        "TRANSIT ASSETS: TRI-RAIL",
         "TRANSIT SAFETY: PALM TRAN"
       )
     )
   ) |>
+
+  # Scorecard subsection headings
   tab_style(
-    style = cell_text(weight = "bold", size = px(18), color = "#646566"),
+    style = cell_text(
+      weight = "bold",
+      size = px(18),
+      color = "#646566"
+    ),
     locations = cells_body(
       columns = Metric,
       rows = Metric %in% c(
         "Bridges",
         "Pavement",
-        "Palm Tran",
-        "Tri-Rail",
         "Fixed Route Bus",
         "Paratransit (Palm Tran Connection)"
       )
     )
   ) |>
+
+  # Safety hyperlink
+  text_transform(
+    locations = cells_body(
+      columns = Metric,
+      rows = Metric == "SAFETY (5 -YR Avg.)"
+    ),
+    fn = function(x) {
+      html(
+        paste0(
+          '<a href="#safety" ',
+          'style="color:#646566; ',
+          'text-decoration:none; ',
+          'font-weight:bold;">',
+          x,
+          " 🔗</a>"
+      )
+    )
+  }
+) |>
+
+  # Infrastructure hyperlink
+  text_transform(
+    locations = cells_body(
+      columns = Metric,
+      rows = Metric == "INFRASTRUCTURE"
+    ),
+    fn = function(x) {
+      html(
+        paste0(
+          '<a href="#infrastructure" ',
+          'style="color:#646566; ',
+          'text-decoration:none; ',
+          'font-weight:bold;">',
+          x,
+          " 🔗</a>"
+      )
+    )
+  }
+) |>
+
+  # System Performance hyperlink
+  text_transform(
+    locations = cells_body(
+      columns = Metric,
+      rows = Metric == "SYSTEM PERFORMANCE RELIABILITY"
+    ),
+    fn = function(x) {
+      html(
+        paste0(
+          '<a href="#system-performance" ',
+          'style="color:#646566; ',
+          'text-decoration:none; ',
+          'font-weight:bold;">',
+          x,
+          " 🔗</a>"
+      )
+    )
+  }
+) |>
+
+  # Palm Tran hyperlink
+  text_transform(
+    locations = cells_body(
+      columns = Metric,
+      rows = Metric == "TRANSIT ASSETS: PALM TRAN"
+    ),
+    fn = function(x) {
+      html(
+        paste0(
+          '<a href="#palm-tran-assets" ',
+          'style="color:#646566; ',
+          'text-decoration:none; ',
+          'font-weight:bold;">',
+          x,
+          " 🔗</a>"
+      )
+    )
+  }
+) |>
+
+  # Tri-Rail hyperlink
+  text_transform(
+    locations = cells_body(
+      columns = Metric,
+      rows = Metric == "TRANSIT ASSETS: TRI-RAIL"
+    ),
+    fn = function(x) {
+      html(
+        paste0(
+          '<a href="#tri-rail-assets" ',
+          'style="color:#646566; ',
+          'text-decoration:none; ',
+          'font-weight:bold;">',
+          x,
+          " 🔗</a>"
+      )
+    )
+  }
+) |>
+
   cols_align(
     align = "center",
-    columns = c(Goal_Met_Display, `Actual (2024)`, `Target (2025)`)
+    columns = c(
+      Goal_Met_Display,
+      `Actual (2024)`,
+      Target
+    )
   ) |>
+
   cols_width(
     Metric ~ px(360),
     Goal_Met_Display ~ px(80),
     `Actual (2024)` ~ px(100),
-    `Target (2025)` ~ px(100)
+    Target ~ px(100)
   ) |>
+
+  # Red X styling
   tab_style(
-    style = cell_text(color = "#F8485E", weight = "bold", size = px(23)),
+    style = cell_text(
+      color = "#F8485E",
+      weight = "bold",
+      size = px(23)
+    ),
     locations = cells_body(
       columns = Goal_Met_Display,
       rows = Goal_Met_Display == "✕"
     )
   ) |>
+
+  # Green check styling
   tab_style(
-    style = cell_text(color = "#26D07C", weight = "bold", size = px(23)),
+    style = cell_text(
+      color = "#26D07C",
+      weight = "bold",
+      size = px(23)
+    ),
     locations = cells_body(
       columns = Goal_Met_Display,
       rows = Goal_Met_Display == "✓"
     )
   ) |>
+
+  # New-measure styling
   tab_style(
-    style = cell_text(color = "#646566", weight = "bold", size = px(16)),
+    style = cell_text(
+      color = "#646566",
+      weight = "bold",
+      size = px(16)
+    ),
     locations = cells_body(
       columns = Goal_Met_Display,
       rows = Goal_Met_Display == "New"
     )
   ) |>
+
   opt_row_striping() |>
+
   tab_options(
     table.width = pct(100),
     table.font.size = px(16),
@@ -325,9 +531,14 @@ scorecard |>
   )
 ```
 
-# 1) Safety
+# 1) Safety {#safety}
 :::{.text-left}
-The Palm Beach MPO and the State of Florida have set a goal for **zero** fatalities and serious injuries on the roadway network. Florida and Metropolitan Planning Organizations (MPOs), are federally required to track and set targets for **total fatalities, fatality rate, serious injuries, serious injury rate**, and the total number of **non-motorized (pedestrian & bicyclists) fatalities and serious injuries**. For more information, [see FDOT's guidance document](https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/planning/fto/pdis-documents/performance-measures-methodology-and-data-report.pdf?sfvrsn=72082866_1).
+The Palm Beach MPO and the State of Florida have set a goal for **zero** fatalities and serious injuries on the roadway network. Florida and Metropolitan Planning Organizations (MPOs), are federally required to track and set targets for **total fatalities, fatality rate, serious injuries, serious injury rate**, and the total number of **non-motorized (pedestrian & bicyclists) fatalities and serious injuries**. For more information,
+<a href="https://fdotwww.blob.core.windows.net/sitefinity/docs/default-source/planning/fto/pdis-documents/performance-measures-methodology-and-data-report.pdf?sfvrsn=72082866_1"
+   target="_blank"
+   rel="noopener noreferrer">
+see FDOT's guidance document.
+</a>
 :::
 ::: {.panel-tabset .nav-pills}
 ## Fatalities 
@@ -377,7 +588,7 @@ hc_exporting(
 )
 ```
 :::{.text-left}
-Source: FDOT Source Book Number and Rate of Fatalities.
+Source: FDOT Source Book (PM1/PM2/PM3).
 :::
 
 ## Fatal Crash Rate
@@ -416,7 +627,7 @@ highchart() |>
   )
 ```
 :::{.text-left}
-Source: FDOT Source Book Number and Rate of Fatalities.
+Source: FDOT Source Book (PM1/PM2/PM3).
 :::
 ## Serious Injuries
 
@@ -507,7 +718,7 @@ highchart() |>
   )
 ```
 :::{.text-left}
-Source: FDOT Source Book Federal Performance Measures.
+Source: FDOT Source Book (PM1/PM2/PM3).
 :::
 ## Nonmotorized Fatalities and Serious Injuries
 
@@ -565,7 +776,7 @@ hc_exporting(
 Source: FDOT State Safety Office Crash Analysis Reporting (CAR) database.
 :::
 :::
-# 2) Infrastructure Conditions
+# 2) Infrastructure Conditions {#infrastructure}
 ## Bridge Conditions
 :::{.text-left}
 **Bridge condition** is required to be tracked for all bridges on the National Highway System (NHS). Good condition suggests no major investment is needed, while Poor condition suggests major reconstruction investment is needed.
@@ -628,7 +839,7 @@ highchart() |>
   )
 ```
 :::{.text-left}
-Source: FDOT Source Book Federal Performance Measures.
+Source: FDOT Source Book (PM1/PM2/PM3).
 :::
 ## Bridges in Poor Condition
 
@@ -685,7 +896,7 @@ highchart() |>
   )
 ```
 :::{.text-left}
-Source: FDOT Source Book Federal Performance Measures.
+Source: FDOT Source Book (PM1/PM2/PM3).
 :::
 :::
 ::: {.panel-tabset .nav-pills}
@@ -895,7 +1106,7 @@ highchart() |>
   )
 ```
 :::{.text-left}
-Source: FDOT Source Book Federal Performance Measures.
+Source: FDOT Source Book (PM1/PM2/PM3).
 :::
 ### Interstate Pavements in Poor Condition
 
@@ -955,7 +1166,7 @@ highchart() |>
   )
 ```
 :::{.text-left}
-Source: FDOT Source Book Federal Performance Measures.
+Source: FDOT Source Book (PM1/PM2/PM3).
 :::
 :::
 ::: {.panel-tabset .nav-pills}
@@ -1021,7 +1232,7 @@ highchart() |>
   )
 ```
 :::{.text-left}
-Source: FDOT Source Book Federal Performance Measures.
+Source: FDOT Source Book (PM1/PM2/PM3).
 :::
 ### Non-Interstate Pavements in Poor Condition
 
@@ -1084,7 +1295,7 @@ highchart() |>
   )
 ```
 :::{.text-left}
-Source: FDOT Source Book Federal Performance Measures.
+Source: FDOT Source Book (PM1/PM2/PM3).
 :::
 :::
 ## Pavement Conditions Map
@@ -1136,11 +1347,19 @@ leaflet(pavement) |>
 :::{.text-left}
 **Additional Resources on Pavement and Bridge Condition:**
 
-[FDOT Federal Performance Measures Resources](https://performance-data-integration-space-fdot.hub.arcgis.com/pages/mpo-performance-resources).
+<a href="https://performance-data-integration-space-fdot.hub.arcgis.com/pages/mpo-performance-resources"
+   target="_blank"
+   rel="noopener noreferrer">
+FDOT Federal Performance Measures Resources.
+</a>
 
-[FDOT Bridge Information](https://www.fdot.gov/maintenance/divisions.shtm/structures/bridgeinfo.shtm)
+<a href="https://www.fdot.gov/maintenance/divisions.shtm/structures/bridgeinfo.shtm"
+   target="_blank"
+   rel="noopener noreferrer">
+FDOT Bridge Information.
+</a>
 :::
-# 3) System Performance
+# 3) System Performance {#system-performance}
 ## System Reliability Map
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
@@ -1197,7 +1416,7 @@ leaflet(system_reliability) |>
   )
 ```
 :::{.text-left}
-Source: FDOT Systems Forecasting & Trends Office, 2025
+Source: FDOT Systems Forecasting & Trends Office, 2025.
 :::
 ## Travel Time Reliability
 :::{.text-left}
@@ -1268,7 +1487,7 @@ highchart() |>
   )
 ```
 :::{.text-left}
-Source: FDOT Source Book Federal Performance Measures.
+Source: FDOT Source Book (PM1/PM2/PM3).
 :::
 ### Travel Time on Non-Interstate Roads
 
@@ -1332,7 +1551,7 @@ highchart() |>
   )
 ```
 :::{.text-left}
-Source: FDOT Source Book Federal Performance Measures.
+Source: FDOT Source Book (PM1/PM2/PM3).
 :::
 :::
 ## Truck Travel Time Reliability
@@ -1382,9 +1601,9 @@ highchart() |>
   )
 ```
 :::{.text-left}
-Source: FDOT Source Book Federal Performance Measures.
+Source: FDOT Source Book (PM1/PM2/PM3).
 :::
-# 4) Transit Assets: Palm Tran
+# 4) Transit Assets: Palm Tran {#palm-tran-assets}
 :::{.text-left}
 **Palm Tran** establishes performance measures for vehicles to track their useful life, and most facilities to ensure they remain in good condition. Below are the metrics tracked for Palm Tran. Tri-Rail performance measure goals are shown on a separate page. 
 :::
@@ -1636,9 +1855,9 @@ highchart() |>
 Source: Palm Tran Asset Management Inventory.
 :::
 :::
-# 5) Transit Assets: Tri-Rail
+# 5) Transit Assets: Tri-Rail {#tri-rail-assets}
 :::{.text-left}
-The multi-county regional train service provider, **Tri-Rail** establishes goals so that most vehicles remain newer than their useful life, and most facilities remain in good condition. The goals below are for Tri-Rail. Palm Tran performance measure goals are shown on a separate page.
+The multi-county regional train service provider, **South Florida Regional Transportation Authority (Tri-Rail)** establishes goals so that most vehicles remain newer than their useful life, and most facilities remain in good condition. The goals below are for Tri-Rail. Palm Tran performance measure goals are shown on a separate page.
 :::
 ::: {.panel-tabset .nav-pills}
 ## Rolling Stock - Locomotives, Coach Cars, Self-propelled Cars
@@ -1909,77 +2128,4 @@ highchart() |>
 :::{.text-left}
 Source: Tri-Rail Transit Asset Management Plan.
 :::
-:::
-# 6) Transit Safety: Palm Tran
-:::{.text-left}
-**Palm Tran** is federally required to set targets for transit-related safety performance measures, including fatalities, injuries, safety events, and mechanical failures [(see FTA website for more details)](https://www.transit.dot.gov/PTASP). Palm Tran officially adopts targets and updates them annually through their [Public Transportation Agency Safety Plan (PTASP)](https://www.ecfr.gov/current/title-49/subtitle-B/chapter-VI/part-673). Palm Tran coordinates with the Palm Beach MPO to formally adopt the targets and integrate them into the MPO's planning and programming process.Find more Palm Tran performance highlights [here](https://www.palmtran.org/wp-content/uploads/2026/05/March-2026-Monthly-Performance-Report.pdf).
-:::
-
-## Palm Tran Safety Scorecard
-
-```{r, echo=FALSE, warning=FALSE, message=FALSE}
-library(readxl)
-library(dplyr)
-library(gt)
-
-scorecard <- read_excel(
-  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/Performance_Measures_R.xlsx",
-  sheet = "PT_Safety_SC"
-)
-
-scorecard |>
-  gt() |>
-  fmt_number(
-    columns = c(`Actual 2025`, `Target 2026`),
-    decimals = 2,
-    drop_trailing_zeros = TRUE
-  ) |>
-  cols_label(
-    Metric = "Metric",
-    `Actual 2025` = "Actual",
-    `Target 2026` = "Target"
-  ) |>
-  sub_missing(
-    columns = everything(),
-    missing_text = ""
-  ) |>
-  tab_style(
-    style = list(
-      cell_fill(color = "#62B5E5"),
-      cell_text(color = "white", weight = "bold", size = px(18))
-    ),
-    locations = cells_column_labels(everything())
-  ) |>
-  tab_style(
-    style = cell_text(weight = "bold", size = px(20), color = "#646566"),
-    locations = cells_body(
-      columns = Metric,
-      rows = Metric %in% c("Fixed Route Bus", "Paratransit (Palm Tran Connection)")
-    )
-  ) |>
-  cols_align(
-    align = "center",
-    columns = c(`Actual 2025`, `Target 2026`)
-  ) |>
-  cols_width(
-    Metric ~ px(360),
-    `Actual 2025` ~ px(130),
-    `Target 2026` ~ px(130)
-  ) |>
-  opt_row_striping() |>
-  tab_options(
-    table.width = pct(100),
-    table.font.size = px(16),
-    data_row.padding = px(4),
-    column_labels.border.bottom.color = "#D9E2EC",
-    table.border.top.color = "white",
-    table.border.bottom.color = "white",
-    row.striping.background_color = "#F7F9FC",
-    heading.background.color = "white",
-    table_body.hlines.color = "#E6ECF2",
-    table_body.vlines.color = "white"
-  )
-```
-:::{.text-left}
-Source: Palm Tran Public Transportation Agency Safety Plan.
 :::
