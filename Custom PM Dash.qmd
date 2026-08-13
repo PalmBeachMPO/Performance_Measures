@@ -459,6 +459,25 @@ scorecard |>
     )
   }
 ) |>
+    # Transit Safety: Palm Tran hyperlink
+  text_transform(
+    locations = cells_body(
+      columns = Metric,
+      rows = Metric == "TRANSIT SAFETY: PALM TRAN"
+    ),
+    fn = function(x) {
+      html(
+        paste0(
+          '<a href="#transit-safety" ',
+          'style="color:#646566; ',
+          'text-decoration:none; ',
+          'font-weight:bold;">',
+          x,
+          " 🔗</a>"
+        )
+      )
+    }
+  ) |>
 
   cols_align(
     align = "center",
@@ -1358,9 +1377,20 @@ FDOT Federal Performance Measures Resources.
    rel="noopener noreferrer">
 FDOT Bridge Information.
 </a>
+
+<a href=" https://performance-data-integration-space-fdot.hub.arcgis.com/pages/performance-reports"
+   target="_blank"
+   rel="noopener noreferrer">
+FDOT Transportation Asset Management Plan.
+</a>
 :::
 # 3) System Performance {#system-performance}
 ## System Reliability Map
+:::{.text-left}
+**Travel time reliability is measured on the Interstate and non-Interstate National Highway System (NHS).** 
+
+Travel time reliability aims to help people make informed choices about when they travel, which mode(s) they take, and which routes they choose. In a more reliable system, people can have better expectations about travel times and plan accordingly. Travel time reliability is measured as a share of person-miles that are reliable, or not abnormal for a particular location at a particular time. A roadway segment is considered reliable when the time required to travel on it is no more than a 50% increase from the regular travel time expected on that segment. Incident-based congestion caused by crashes or traffic hazards lessen travel time reliability. While we can't build our way out of traffic congestion, we can make traffic congestion more reliable.
+:::
 
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(sf)
@@ -1419,11 +1449,7 @@ leaflet(system_reliability) |>
 Source: FDOT Systems Forecasting & Trends Office, 2025.
 :::
 ## Travel Time Reliability
-:::{.text-left}
-**Travel time reliability is measured on the Interstate and non-Interstate National Highway System (NHS).** 
 
-Travel time reliability aims to help people make informed choices about when they travel, which mode(s) they take, and which routes they choose. In a more reliable system, people can have better expectations about travel times and plan accordingly. Travel time reliability is measured as a share of person-miles that are reliable, or not abnormal for a particular location at a particular time. A roadway segment is considered reliable when the time required to travel on it is no more than a 50% increase from the regular travel time expected on that segment. Incident-based congestion caused by crashes or traffic hazards lessen travel time reliability. While we can't build our way out of traffic congestion, we can make traffic congestion more reliable.
-:::
 ::: {.panel-tabset .nav-pills}
 ### Travel Time on the Interstate
 
@@ -2128,4 +2154,225 @@ highchart() |>
 :::{.text-left}
 Source: Tri-Rail Transit Asset Management Plan.
 :::
+:::
+# 6) Transit Safety: Palm Tran {#transit-safety}
+
+## Fixed Route Bus
+
+::: {.panel-tabset .nav-pills}
+
+### Fatalities
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(readxl)
+library(highcharter)
+
+fatalities_fbr <- read_excel(
+  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/Performance_Measures_R.xlsx",
+  sheet = "Fatalities_FBR"
+)
+
+highchart() |>
+  hc_chart(
+    type = "column",
+    backgroundColor = "white"
+  ) |>
+  hc_title(text = "Fixed Route Bus Fatalities") |>
+  hc_subtitle(text = "Palm Tran") |>
+  hc_xAxis(
+    categories = as.character(fatalities_fbr$Year),
+    title = list(text = "Year")
+  ) |>
+  hc_yAxis(
+    title = list(text = "Number of Fatalities"),
+    min = 0,
+    allowDecimals = FALSE
+  ) |>
+  hc_add_series(
+    name = "Fatalities",
+    data = fatalities_fbr$Number,
+    color = "#147BD1"
+  ) |>
+  hc_add_series(
+    name = "Target",
+    data = fatalities_fbr$Target,
+    type = "line",
+    dashStyle = "Dash",
+    color = "#000000",
+    marker = list(enabled = FALSE)
+  ) |>
+  hc_tooltip(
+    pointFormat = "<b>{point.y}</b>"
+  ) |>
+  hc_exporting(
+    enabled = TRUE
+  )
+```
+
+:::{.text-left}
+Source: Palm Tran Public Transportation Agency Safety Plan.
+:::
+
+### Serious Injuries
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(readxl)
+library(highcharter)
+
+injuries_fbr <- read_excel(
+  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/Performance_Measures_R.xlsx",
+  sheet = "Injuries_FBR"
+)
+
+highchart() |>
+  hc_chart(
+    type = "column",
+    backgroundColor = "white"
+  ) |>
+  hc_title(text = "Fixed Route Bus Injuries") |>
+  hc_subtitle(text = "Palm Tran") |>
+  hc_xAxis(
+    categories = as.character(injuries_fbr$Year),
+    title = list(text = "Year")
+  ) |>
+  hc_yAxis(
+    title = list(text = "Number of Injuries"),
+    min = 0,
+    allowDecimals = FALSE
+  ) |>
+  hc_add_series(
+    name = "Injuries",
+    data = injuries_fbr$Number,
+    color = "#147BD1"
+  ) |>
+  hc_add_series(
+    name = "Target",
+    data = injuries_fbr$Target,
+    type = "line",
+    dashStyle = "Dash",
+    color = "#000000",
+    marker = list(enabled = FALSE)
+  ) |>
+  hc_tooltip(
+    pointFormat = "<b>{point.y}</b>"
+  ) |>
+  hc_exporting(
+    enabled = TRUE
+  )
+```
+
+:::{.text-left}
+Source: Palm Tran Public Transportation Agency Safety Plan.
+:::
+
+:::
+
+## Paratransit
+
+::: {.panel-tabset .nav-pills}
+
+### Fatalities
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(readxl)
+library(highcharter)
+
+fatalities_pt <- read_excel(
+  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/Performance_Measures_R.xlsx",
+  sheet = "Fatalities_PT"
+)
+
+highchart() |>
+  hc_chart(
+    type = "column",
+    backgroundColor = "white"
+  ) |>
+  hc_title(text = "Paratransit Fatalities") |>
+  hc_subtitle(text = "Palm Tran Connection") |>
+  hc_xAxis(
+    categories = as.character(fatalities_pt$Year),
+    title = list(text = "Year")
+  ) |>
+  hc_yAxis(
+    title = list(text = "Number of Fatalities"),
+    min = 0,
+    allowDecimals = FALSE
+  ) |>
+  hc_add_series(
+    name = "Fatalities",
+    data = fatalities_pt$Number,
+    color = "#147BD1"
+  ) |>
+  hc_add_series(
+    name = "Target",
+    data = fatalities_pt$Target,
+    type = "line",
+    dashStyle = "Dash",
+    color = "#000000",
+    marker = list(enabled = FALSE)
+  ) |>
+  hc_tooltip(
+    pointFormat = "<b>{point.y}</b>"
+  ) |>
+  hc_exporting(
+    enabled = TRUE
+  )
+```
+
+:::{.text-left}
+Source: Palm Tran Public Transportation Agency Safety Plan.
+:::
+
+### Serious Injuries
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(readxl)
+library(highcharter)
+
+injuries_pt <- read_excel(
+  "C:/MPO/OneDrive - Palm Beach MPO/Documents/Performance_Measures/Performance_Measures_R.xlsx",
+  sheet = "Injuries_PT"
+)
+
+highchart() |>
+  hc_chart(
+    type = "column",
+    backgroundColor = "white"
+  ) |>
+  hc_title(text = "Paratransit Injuries") |>
+  hc_subtitle(text = "Palm Tran Connection") |>
+  hc_xAxis(
+    categories = as.character(injuries_pt$Year),
+    title = list(text = "Year")
+  ) |>
+  hc_yAxis(
+    title = list(text = "Number of Injuries"),
+    min = 0,
+    allowDecimals = FALSE
+  ) |>
+  hc_add_series(
+    name = "Injuries",
+    data = injuries_pt$Number,
+    color = "#147BD1"
+  ) |>
+  hc_add_series(
+    name = "Target",
+    data = injuries_pt$Target,
+    type = "line",
+    dashStyle = "Dash",
+    color = "#000000",
+    marker = list(enabled = FALSE)
+  ) |>
+  hc_tooltip(
+    pointFormat = "<b>{point.y}</b>"
+  ) |>
+  hc_exporting(
+    enabled = TRUE
+  )
+```
+
+:::{.text-left}
+Source: Palm Tran Public Transportation Agency Safety Plan.
+:::
+
 :::

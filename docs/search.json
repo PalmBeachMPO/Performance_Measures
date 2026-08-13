@@ -25,21 +25,21 @@
     "href": "Custom PM Dash.html#pavement-conditions-map",
     "title": "Performance Measures Scorecard",
     "section": "Pavement Conditions Map",
-    "text": "Pavement Conditions Map\n\n\n\n\n\n\n\n\nAdditional Resources on Pavement and Bridge Condition:\n FDOT Federal Performance Measures Resources. \n FDOT Bridge Information."
+    "text": "Pavement Conditions Map\n\n\n\n\n\n\n\n\nAdditional Resources on Pavement and Bridge Condition:\n FDOT Federal Performance Measures Resources. \n FDOT Bridge Information. \n FDOT Transportation Asset Management Plan."
   },
   {
     "objectID": "Custom PM Dash.html#system-reliability-map",
     "href": "Custom PM Dash.html#system-reliability-map",
     "title": "Performance Measures Scorecard",
     "section": "System Reliability Map",
-    "text": "System Reliability Map\n\n\n\n\n\n\n\nSource: FDOT Systems Forecasting & Trends Office, 2025."
+    "text": "System Reliability Map\n\nTravel time reliability is measured on the Interstate and non-Interstate National Highway System (NHS).\nTravel time reliability aims to help people make informed choices about when they travel, which mode(s) they take, and which routes they choose. In a more reliable system, people can have better expectations about travel times and plan accordingly. Travel time reliability is measured as a share of person-miles that are reliable, or not abnormal for a particular location at a particular time. A roadway segment is considered reliable when the time required to travel on it is no more than a 50% increase from the regular travel time expected on that segment. Incident-based congestion caused by crashes or traffic hazards lessen travel time reliability. While we can’t build our way out of traffic congestion, we can make traffic congestion more reliable.\n\n\n\n\n\n\n\n\nSource: FDOT Systems Forecasting & Trends Office, 2025."
   },
   {
     "objectID": "Custom PM Dash.html#travel-time-reliability",
     "href": "Custom PM Dash.html#travel-time-reliability",
     "title": "Performance Measures Scorecard",
     "section": "Travel Time Reliability",
-    "text": "Travel Time Reliability\n\nTravel time reliability is measured on the Interstate and non-Interstate National Highway System (NHS).\nTravel time reliability aims to help people make informed choices about when they travel, which mode(s) they take, and which routes they choose. In a more reliable system, people can have better expectations about travel times and plan accordingly. Travel time reliability is measured as a share of person-miles that are reliable, or not abnormal for a particular location at a particular time. A roadway segment is considered reliable when the time required to travel on it is no more than a 50% increase from the regular travel time expected on that segment. Incident-based congestion caused by crashes or traffic hazards lessen travel time reliability. While we can’t build our way out of traffic congestion, we can make traffic congestion more reliable.\n\n\nTravel Time on the InterstateTravel Time on Non-Interstate Roads\n\n\n\n\n\n\n\n\n\nSource: FDOT Source Book (PM1/PM2/PM3).\n\n\n\n\n\n\n\n\n\n\nSource: FDOT Source Book (PM1/PM2/PM3)."
+    "text": "Travel Time Reliability\n\nTravel Time on the InterstateTravel Time on Non-Interstate Roads\n\n\n\n\n\n\n\n\n\nSource: FDOT Source Book (PM1/PM2/PM3).\n\n\n\n\n\n\n\n\n\n\nSource: FDOT Source Book (PM1/PM2/PM3)."
   },
   {
     "objectID": "Custom PM Dash.html#truck-travel-time-reliability",
@@ -47,5 +47,19 @@
     "title": "Performance Measures Scorecard",
     "section": "Truck Travel Time Reliability",
     "text": "Truck Travel Time Reliability\n\nTruck Travel Time Reliability is a measure is an index measure calculating the reliability of truck freight in a region. Reliability is less about eliminating congestion for freight and more about lessening unpredictable congestion (for example, incident-related congested caused by crashes or roadway hazards). The region has established a goal of a Truck Travel Time Reliability index score of less than 2.0.\n\n\n\n\n\n\n\n\nSource: FDOT Source Book (PM1/PM2/PM3)."
+  },
+  {
+    "objectID": "Custom PM Dash.html#fixed-route-bus",
+    "href": "Custom PM Dash.html#fixed-route-bus",
+    "title": "Performance Measures Scorecard",
+    "section": "Fixed Route Bus",
+    "text": "Fixed Route Bus\n\nFatalitiesSerious Injuries\n\n\n\n\n\n\n\n\n\nSource: Palm Tran Public Transportation Agency Safety Plan.\n\n\n\n\n\n\n\n\n\n\nSource: Palm Tran Public Transportation Agency Safety Plan."
+  },
+  {
+    "objectID": "Custom PM Dash.html#paratransit",
+    "href": "Custom PM Dash.html#paratransit",
+    "title": "Performance Measures Scorecard",
+    "section": "Paratransit",
+    "text": "Paratransit\n\nFatalitiesSerious Injuries\n\n\n\n\n\n\n\n\n\nSource: Palm Tran Public Transportation Agency Safety Plan.\n\n\n\n\n\n\n\n\n\n\nSource: Palm Tran Public Transportation Agency Safety Plan."
   }
 ]
