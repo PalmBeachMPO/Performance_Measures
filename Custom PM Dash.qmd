@@ -157,6 +157,90 @@ include-in-header:
         background-color: #147BD1;
       }
 
+      /* PERFORMANCE METRIC SUMMARY CARD */
+
+      .metric-summary {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        width: 100%;
+        padding: 18px 22px;
+        margin: 12px 0 20px 0;
+        background-color: white;
+        border: 1px solid #D9E2EC;
+        box-sizing: border-box;
+      }
+
+      .metric-summary-left {
+        flex: 1;
+        min-width: 250px;
+      }
+
+      .metric-summary-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #646566;
+        line-height: 1.2;
+      }
+
+      .metric-summary-location {
+        font-size: 17px;
+        font-weight: 400;
+        color: #646566;
+        margin-top: 2px;
+      }
+
+      .metric-summary-stat {
+        min-width: 125px;
+        text-align: center;
+        padding-left: 20px;
+        border-left: 1px solid #D9E2EC;
+      }
+
+      .metric-summary-label {
+        font-size: 15px;
+        color: #646566;
+        margin-bottom: 2px;
+      }
+
+      .metric-summary-value {
+        font-size: 34px;
+        line-height: 1;
+        font-weight: 700;
+        color: #147BD1;
+      }
+
+      .metric-summary-unit {
+        font-size: 15px;
+        font-weight: 700;
+        color: #646566;
+        margin-top: 3px;
+      }
+
+      .metric-summary-year {
+        font-size: 13px;
+        color: #646566;
+        margin-top: 3px;
+      }
+
+      .metric-summary-status {
+        padding: 8px 12px;
+        border-radius: 4px;
+        color: white;
+        font-size: 15px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .status-missed {
+        background-color: #F8485E;
+      }
+
+      .status-met {
+        background-color: #26D07C;
+      }
+
       /* FULL-WIDTH QUARTO FOOTER */
 
       .nav-footer {
@@ -189,7 +273,7 @@ include-in-header:
         color: #D9EAF8 !important;
       }
 
-      /* RETURN TO NORMAL QUARTO TOC ON SMALL SCREENS */
+      /* RESPONSIVE SETTINGS */
 
       @media (max-width: 1100px) {
         #TOC {
@@ -201,12 +285,27 @@ include-in-header:
         }
       }
 
+      @media (max-width: 900px) {
+        .metric-summary {
+          flex-wrap: wrap;
+        }
+
+        .metric-summary-left {
+          flex-basis: 100%;
+        }
+
+        .metric-summary-stat {
+          border-left: none;
+          padding-left: 0;
+        }
+      }
+
     </style>
 ---
 
 ::: {.text-left}
 
-![](images/Performance_measures_header_main.webp){width="100%"}
+![](images/Performance_measures_header_main.jpg){width="100%"}
 <button onclick="window.print()" class="print-button">
   Print / Save as PDF
 </button>
@@ -560,7 +659,102 @@ see FDOT's guidance document.
 </a>
 :::
 ::: {.panel-tabset .nav-pills}
-## Fatalities 
+## Fatalities
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(gt)
+library(dplyr)
+
+fatalities_summary <- data.frame(
+  Metric = "Fatalities (5-YR Avg.)",
+  Current = "210",
+  Target = "0",
+  Status = "Missed Goal ✕"
+)
+
+fatalities_summary |>
+  gt() |>
+  cols_label(
+    Metric = "",
+    Current = "",
+    Target = "",
+    Status = ""
+  ) |>
+  text_transform(
+    locations = cells_body(columns = Metric),
+    fn = function(x) {
+      html(
+        paste0(
+          '<div style="font-size:22px;font-weight:700;color:#646566;line-height:1.1;">',
+          x,
+          '</div>',
+          '<div style="font-size:14px;color:#646566;margin-top:2px;line-height:1.1;">',
+          'Palm Beach County',
+          '</div>'
+        )
+      )
+    }
+  ) |>
+  text_transform(
+    locations = cells_body(columns = Current),
+    fn = function(x) {
+      html(
+        paste0(
+          '<div style="font-size:14px;color:#646566;line-height:1;">Current</div>',
+          '<div style="font-size:32px;font-weight:700;color:#147BD1;line-height:1;">',
+          x,
+          '</div>',
+          '<div style="font-size:14px;font-weight:700;color:#646566;line-height:1;">Fatalities</div>',
+          '<div style="font-size:12px;color:#646566;line-height:1;margin-top:3px;">2024</div>'
+        )
+      )
+    }
+  ) |>
+  text_transform(
+    locations = cells_body(columns = Target),
+    fn = function(x) {
+      html(
+        paste0(
+          '<div style="font-size:14px;color:#646566;line-height:1;">Target</div>',
+          '<div style="font-size:32px;font-weight:700;color:#147BD1;line-height:1;">',
+          x,
+          '</div>',
+          '<div style="font-size:14px;font-weight:700;color:#646566;line-height:1;">Fatalities</div>'
+        )
+      )
+    }
+  ) |>
+  tab_style(
+    style = list(
+      cell_fill(color = "#F8485E"),
+      cell_text(color = "white", weight = "bold", size = px(14))
+    ),
+    locations = cells_body(columns = Status)
+  ) |>
+  cols_align(
+    align = "center",
+    columns = c(Current, Target, Status)
+  ) |>
+  cols_align(
+    align = "left",
+    columns = Metric
+  ) |>
+  cols_width(
+    Metric ~ pct(40),
+    Current ~ pct(20),
+    Target ~ pct(20),
+    Status ~ pct(20)
+  ) |>
+  tab_options(
+    table.width = pct(100),
+    data_row.padding = px(8),
+    column_labels.hidden = TRUE,
+    table.border.top.color = "#D9E2EC",
+    table.border.bottom.color = "#D9E2EC",
+    table_body.hlines.color = "white",
+    table_body.vlines.color = "#D9E2EC"
+  )
+```
 
 ```{r, echo=FALSE}
 library(highcharter)
@@ -572,11 +766,15 @@ roadway_fatalities <- data.frame(
 
 highchart() |>
   hc_chart(
-  type = "column",
-  backgroundColor = "white"
-) |>
-  hc_title(text = "Roadway Fatalities by Year (5-YR Avg.)") |>
-  hc_subtitle(text = "Palm Beach County") |>
+    type = "column",
+    backgroundColor = "white"
+  ) |>
+  hc_title(
+    text = "Roadway Fatalities by Year"
+  ) |>
+  hc_subtitle(
+    text = "Palm Beach County"
+  ) |>
   hc_xAxis(
     categories = as.character(roadway_fatalities$Year),
     title = list(text = "Year")
@@ -599,13 +797,14 @@ highchart() |>
     color = "#000000",
     marker = list(enabled = FALSE)
   ) |>
-hc_tooltip(
-  pointFormat = "<b>{point.y}</b>"
-) |>
-hc_exporting(
-  enabled = TRUE
-)
+  hc_tooltip(
+    pointFormat = "<b>{point.y}</b>"
+  ) |>
+  hc_exporting(
+    enabled = TRUE
+  )
 ```
+
 :::{.text-left}
 Source: FDOT Source Book (PM1/PM2/PM3).
 :::
