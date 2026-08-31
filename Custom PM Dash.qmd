@@ -305,6 +305,7 @@ include-in-header:
 
 ::: {.text-left}
 
+## Performance Measures
 ![](images/Performance_measures_header_main.jpg){width="100%"}
 <button onclick="window.print()" class="print-button">
   Print / Save as PDF
